@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统诊断页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .info-item {
+            padding: 10px;
+            margin-bottom: 10px;
+            background: white;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .label {
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .value {
+            color: #333;
+            font-family: monospace;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .status.testing {
+            background: #cfe2ff;
+            color: #084298;
+        }
+        
+        .test-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
+        
+        .test-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .log-box {
+            background: #1e1e1e;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔍 颈椎康复系统 - 诊断页面</h1>
+        
+        <!-- 环境信息 -->
+        <div class="section">
+            <h2>📊 环境信息</h2>
+            <div class="info-item">
+                <span class="label">当前URL:</span>
+                <span class="value" id="currentUrl"></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Hostname:</span>
+                <span class="value" id="hostname"></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Protocol:</span>
+                <span class="value" id="protocol"></span>
+            </div>
+            <div class="info-item">
+                <span class="label">Port:</span>
+                <span class="value" id="port"></span>
+            </div>
+            <div class="info-item">
+                <span class="label">计算出的服务器URL:</span>
+                <span class="value" id="serverUrl"></span>
+            </div>
+        </div>
+        
+        <!-- 连接测试 -->
+        <div class="section">
+            <h2>🔌 连接测试</h2>
+            <div class="info-item">
+                <span class="label">Socket.IO 加载状态:</span>
+                <span class="status" id="socketioStatus">检查中...</span>
+            </div>
+            <div class="info-item">
+                <span class="label">信令服务器连接:</span>
+                <span class="status" id="connectionStatus">未测试</span>
+            </div>
+            <div style="text-align: center; margin-top: 20px;">
+                <button class="test-button" onclick="testConnection()">🔄 测试连接</button>
+                <button class="test-button" onclick="clearLog()">🗑️ 清空日志</button>
+            </div>
+        </div>
+        
+        <!-- 日志输出 -->
+        <div class="section">
+            <h2>📝 实时日志</h2>
+            <div class="log-box" id="logBox">等待测试...</div>
+        </div>
+        
+        <!-- 解决方案 -->
+        <div class="section">
+            <h2>💡 常见问题解决方案</h2>
+            <div style="padding: 10px; line-height: 1.8;">
+                <p><strong>1. 如果提示 "Socket.IO 未加载"：</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>检查网络连接</li>
+                    <li>刷新页面 (Ctrl + F5)</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>2. 如果提示 "无法连接到服务器"：</strong></p>
+                <ul style="margin-left: 20px;">
+                    <li>检查信令服务器是否启动: <code>ps aux | grep signaling-server</code></li>
+                    <li>检查端口3001是否开放: <code>netstat -tlnp | grep 3001</code></li>
+                    <li>检查防火墙设置（阿里云/腾讯云安全组）</li>
+                </ul>
+                
+                <p style="margin-top: 15px;"><strong>3. 服务器启动命令：</strong></p>
+                <pre style="background: #f0f0f0; padding: 10px; border-radius: 5px; overflow-x: auto;">
+cd /path/to/qlyj
+nohup node signaling-server.mjs > signaling.log 2>&1 &
+                </pre>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Socket.IO 客户端 -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    
+    <script>
+        let logMessages = [];
+        
+        // 添加日志
+        function addLog(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const prefix = type === 'error' ? '❌' : type === 'success' ? '✅' : 'ℹ️';
+            const logMessage = `[${timestamp}] ${prefix} ${message}`;
+            logMessages.push(logMessage);
+            document.getElementById('logBox').textContent = logMessages.join('\n');
+            
+            // 自动滚动到底部
+            const logBox = document.getElementById('logBox');
+            logBox.scrollTop = logBox.scrollHeight;
+        }
+        
+        // 清空日志
+        function clearLog() {
+            logMessages = [];
+            document.getElementById('logBox').textContent = '日志已清空，等待新的测试...';
+        }
+        
+        // 获取服务器URL
+        function getServerUrl() {
+            const hostname = window.location.hostname;
+            const protocol = window.location.protocol === 'https:' ? 'https:' : 'http:';
+            
+            if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '') {
+                return 'http://localhost:3001';
+            }
+            
+            return `${protocol}//${hostname}:3001`;
+        }
+        
+        // 显示环境信息
+        function showEnvironmentInfo() {
+            document.getElementById('currentUrl').textContent = window.location.href;
+            document.getElementById('hostname').textContent = window.location.hostname || '(空)';
+            document.getElementById('protocol').textContent = window.location.protocol;
+            document.getElementById('port').textContent = window.location.port || '(默认)';
+            document.getElementById('serverUrl').textContent = getServerUrl();
+            
+            // 检查 Socket.IO 是否加载
+            const socketioStatus = document.getElementById('socketioStatus');
+            if (typeof io !== 'undefined') {
+                socketioStatus.textContent = '已加载 ✓';
+                socketioStatus.className = 'status success';
+                addLog('Socket.IO 客户端库已成功加载', 'success');
+            } else {
+                socketioStatus.textContent = '未加载 ✗';
+                socketioStatus.className = 'status error';
+                addLog('Socket.IO 客户端库加载失败', 'error');
+            }
+        }
+        
+        // 测试连接
+        function testConnection() {
+            const statusEl = document.getElementById('connectionStatus');
+            statusEl.textContent = '测试中...';
+            statusEl.className = 'status testing';
+            
+            addLog('开始测试连接...');
+            addLog(`目标服务器: ${getServerUrl()}`);
+            
+            if (typeof io === 'undefined') {
+                statusEl.textContent = '失败 - Socket.IO 未加载';
+                statusEl.className = 'status error';
+                addLog('测试失败: Socket.IO 客户端库未加载', 'error');
+                return;
+            }
+            
+            const serverUrl = getServerUrl();
+            addLog(`正在连接到 ${serverUrl}...`);
+            
+            const socket = io(serverUrl, {
+                transports: ['websocket', 'polling'],
+                reconnection: false,
+                timeout: 5000
+            });
+            
+            socket.on('connect', () => {
+                addLog(`连接成功！Socket ID: ${socket.id}`, 'success');
+                statusEl.textContent = '连接成功 ✓';
+                statusEl.className = 'status success';
+                
+                // 测试获取在线专家
+                addLog('发送测试请求: get-online-experts');
+                socket.emit('get-online-experts');
+                
+                socket.on('online-experts-list', (experts) => {
+                    addLog(`收到在线专家列表: ${experts.length} 位专家`, 'success');
+                    experts.forEach((expert, index) => {
+                        addLog(`  ${index + 1}. ${expert.name} - ${expert.title}`, 'info');
+                    });
+                });
+                
+                setTimeout(() => {
+                    addLog('测试完成，断开连接');
+                    socket.close();
+                }, 3000);
+            });
+            
+            socket.on('connect_error', (error) => {
+                addLog(`连接失败: ${error.message}`, 'error');
+                statusEl.textContent = '连接失败 ✗';
+                statusEl.className = 'status error';
+            });
+            
+            socket.on('connect_timeout', () => {
+                addLog('连接超时（5秒）', 'error');
+                statusEl.textContent = '连接超时 ✗';
+                statusEl.className = 'status error';
+            });
+        }
+        
+        // 页面加载完成
+        window.onload = function() {
+            addLog('诊断页面加载完成');
+            showEnvironmentInfo();
+            addLog('环境信息已显示，点击"测试连接"按钮开始测试');
+        };
+    </script>
+</body>
+</html>
+

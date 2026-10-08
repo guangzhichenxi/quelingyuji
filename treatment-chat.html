@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI治疗方案 - 颈椎康复助手</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #e6f7ff 0%, #f0f8ff 100%);
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+        
+        .header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .treatment-section {
+            flex: 3;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .chat-section {
+            flex: 2;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            color: #0d47a1;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1e88e5;
+        }
+        
+        .treatment-content {
+            line-height: 1.8;
+            min-height: 400px;
+            max-height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background: #f8f9fa;
+            overflow-y: auto;
+        }
+        
+        .treatment-content h3 {
+            color: #1e88e5;
+            margin-top: 25px;
+            margin-bottom: 15px;
+        }
+        
+        .treatment-content ul {
+            padding-left: 25px;
+        }
+        
+        .treatment-content li {
+            margin-bottom: 10px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+        }
+        
+        .message {
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 10px;
+            max-width: 85%;
+        }
+        
+        .user-message {
+            background: #e3f2fd;
+            margin-left: auto;
+            text-align: right;
+        }
+        
+        .ai-message {
+            background: #f1f8e9;
+            margin-right: auto;
+        }
+        
+        .chat-input {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .chat-input button {
+            background: #1e88e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .chat-input button:hover {
+            background: #0d47a1;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+        
+        .loading i {
+            margin-right: 10px;
+        }
+        
+        .back-button {
+            background: #78909c;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-bottom: 20px;
+            transition: background 0.3s;
+        }
+        
+        .back-button:hover {
+            background: #546e7a;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="back-button" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i> 返回评估页面
+        </button>
+        
+        <div class="header">
+            <h1><i class="fas fa-heartbeat"></i> AI个性化治疗方案</h1>
+            <p>基于您的评估数据生成的专业康复建议</p>
+        </div>
+        
+        <div class="content">
+            <div class="treatment-section">
+                <h2 class="section-title"><i class="fas fa-stethoscope"></i> 个性化治疗方案</h2>
+                <div class="treatment-content" id="treatmentContent">
+                    <div class="loading">
+                        <i class="fas fa-spinner fa-spin"></i> 正在生成个性化治疗方案，请稍候...
+                    </div>
+                </div>
+            </div>
+            
+            <div class="chat-section">
+                <h2 class="section-title"><i class="fas fa-robot"></i> AI康复助手</h2>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message ai-message">
+                        您好！我是您的AI康复助手，您可以就治疗方案或颈椎康复相关问题向我提问。
+                    </div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="userInput" placeholder="请输入您的问题..." onkeypress="handleKeyPress(event)">
+                    <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i> 发送</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        // 全局变量
+        let socket = null;
+        let assessmentData = null;
+        let treatmentPlanDisplayed = false; // 添加防重复显示标志
+        
+        // 页面加载完成后初始化
+        window.onload = function() {
+            console.log('治疗方案页面开始加载');
+            // 从URL参数获取评估数据
+            const urlParams = new URLSearchParams(window.location.search);
+            const data = urlParams.get('data');
+            
+            if (data) {
+                try {
+                    assessmentData = JSON.parse(decodeURIComponent(data));
+                    console.log('解析评估数据成功:', assessmentData);
+                } catch (e) {
+                    console.error('解析评估数据失败:', e);
+                }
+            } else {
+                console.log('URL中未找到评估数据');
+            }
+            
+            // 初始化P2P连接
+            console.log('开始初始化P2P连接');
+            initP2PConnection();
+        };
+        
+        // 初始化P2P连接
+        function initP2PConnection() {
+            try {
+                // 创建WebSocket连接到信令服务器
+                // 部署到云服务器后，将 localhost 改为服务器IP或域名
+                const serverUrl = window.location.hostname === 'localhost' 
+                    ? 'http://localhost:3001' 
+                    : `http://${window.location.hostname}:3001`;
+                
+                socket = io(serverUrl, {
+                    transports: ['websocket', 'polling'],
+                    reconnection: true,
+                    reconnectionAttempts: 5,
+                    timeout: 10000
+                });
+                
+                console.log('正在连接到服务器:', serverUrl);
+                
+                // 连接成功后加入房间并发送评估数据
+                socket.on('connect', () => {
+                    console.log('已连接到信令服务器');
+                    socket.emit('join-room', 'ai-service-room', 'frontend-treatment');
+                    
+                    // 如果有评估数据，发送给AI服务端生成治疗方案
+                    if (assessmentData) {
+                        console.log('通过WebSocket发送评估数据到AI服务端');
+                        socket.emit('assessment-data', assessmentData, 'ai-service-room');
+                    }
+                });
+                
+                // 接收治疗方案
+                socket.on('treatment-plan', (plan, roomId) => {
+                    console.log('=== 收到治疗方案事件 ===');
+                    console.log('治疗方案:', plan);
+                    console.log('房间ID:', roomId);
+                    console.log('治疗方案类型:', typeof plan);
+                    if (plan && plan.error) {
+                        console.log('治疗方案有错误:', plan.message);
+                        displayTreatmentPlanError(plan.message);
+                    } else {
+                        console.log('显示治疗方案内容');
+                        displayTreatmentPlan(plan);
+                    }
+                });
+                
+                // 接收聊天回复
+                socket.on('chat-response', (response) => {
+                    console.log('收到聊天回复:', response);
+                    if (response.error) {
+                        addMessageToChat('ai', `错误：${response.message}`);
+                    } else {
+                        addMessageToChat('ai', response);
+                    }
+                    
+                    // 移除加载指示器
+                    removeLoadingIndicator();
+                });
+                
+                // 连接错误处理
+                socket.on('connect_error', (error) => {
+                    console.error('连接信令服务器失败:', error);
+                    displayTreatmentPlanError('无法连接到AI服务，请稍后重试');
+                });
+                
+            } catch (error) {
+                console.error('建立连接时发生错误:', error);
+                displayTreatmentPlanError('无法建立连接，请检查网络设置');
+            }
+        }
+        
+        // 显示治疗方案
+        function displayTreatmentPlan(plan) {
+            console.log('=== 开始显示治疗方案 ===');
+            console.log('治疗方案数据:', plan);
+            console.log('治疗方案数据类型:', typeof plan);
+            
+            // 防止重复显示
+            if (treatmentPlanDisplayed) {
+                console.log('治疗方案已显示过，跳过重复显示');
+                return;
+            }
+            
+            const contentDiv = document.getElementById('treatmentContent');
+            console.log('治疗方案容器元素:', contentDiv);
+            
+            // 添加更多调试信息
+            if (!contentDiv) {
+                console.error('未找到治疗方案容器 #treatmentContent');
+                // 尝试通过class查找
+                const contentDivByClass = document.querySelector('.treatment-content');
+                console.log('通过class查找的元素:', contentDivByClass);
+                return;
+            }
+            
+            // 调试：检查元素是否在DOM中
+            console.log('容器父元素:', contentDiv.parentElement);
+            console.log('容器样式显示属性:', window.getComputedStyle(contentDiv).display);
+            console.log('容器偏移高度:', contentDiv.offsetHeight);
+            
+            // 强制显示元素
+            contentDiv.style.display = 'block';
+            contentDiv.style.visibility = 'visible';
+            
+            // 检查治疗方案数据
+            if (!plan) {
+                console.error('治疗方案数据为空');
+                contentDiv.innerHTML = '<div class="error-message">治疗方案数据为空</div>';
+                return;
+            }
+            
+            // 标记治疗方案已显示
+            treatmentPlanDisplayed = true;
+            
+            // 直接显示治疗方案内容，类似聊天助手的方式
+            let content = '';
+            if (typeof plan === 'object') {
+                // 如果是对象，转换为格式化的文本
+                if (plan.diagnosis || plan.treatments || plan.exercises || plan.precautions) {
+                    content = `
+### 个性化治疗方案
+
+#### 诊断结果
+${plan.diagnosis || '暂无诊断结果'}
+
+#### 治疗建议
+${(plan.treatments || []).map((t, i) => `${i+1}. ${t}`).join('\n') || '暂无治疗建议'}
+
+#### 康复训练计划
+${(plan.exercises || []).map((e, i) => `${i+1}. ${e}`).join('\n') || '暂无康复训练计划'}
+
+#### 注意事项
+${(plan.precautions || []).map((p, i) => `${i+1}. ${p}`).join('\n') || '暂无特殊注意事项'}
+                    `.trim();
+                } else {
+                    content = JSON.stringify(plan, null, 2);
+                }
+            } else {
+                // 如果是字符串，直接显示
+                content = plan;
+            }
+            
+            // 显示评估数据（内嵌对话框）
+            let assessmentDataDisplay = '';
+            if (assessmentData) {
+                assessmentDataDisplay = `
+                    <div class="assessment-data-section">
+                        <h3><i class="fas fa-clipboard-list"></i> 评估数据摘要</h3>
+                        <div class="assessment-item">
+                            <strong>疼痛评分 (VAS):</strong> ${assessmentData.vas || '未评估'}
+                        </div>
+                        <div class="assessment-item">
+                            <strong>颈椎活动度:</strong> ${assessmentData.rom || '未评估'}
+                        </div>
+                        <div class="assessment-item">
+                            <strong>特殊检查:</strong>
+                            <ul>
+                                ${(assessmentData.specialTests || []).map(test => 
+                                    `<li>${test.name}: ${test.result}</li>`
+                                ).join('')}
+                            </ul>
+                        </div>
+                        <div class="assessment-item">
+                            <strong>评估时间:</strong> ${assessmentData.timestamp ? new Date(assessmentData.timestamp).toLocaleString() : '未知'}
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // 格式化内容，类似聊天助手的显示方式
+            const formattedContent = content.split('\n').map(line => {
+                if (line.startsWith('###')) {
+                    return `<h3>${line.replace('###', '').trim()}</h3>`;
+                } else if (line.startsWith('####')) {
+                    return `<h4>${line.replace('####', '').trim()}</h4>`;
+                } else if (line.match(/^\d+\./)) {
+                    return `<p style="margin-left: 20px;">${line}</p>`;
+                } else if (line.trim() === '') {
+                    return '<br>';
+                } else {
+                    return `<p>${line}</p>`;
+                }
+            }).join('');
+            
+            contentDiv.innerHTML = `
+                ${assessmentDataDisplay}
+                <div class="treatment-plan-content">
+                    <div class="message ai-message" style="text-align: left; background: #f1f8e9; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                        ${formattedContent}
+                    </div>
+                </div>
+                <div class="disclaimer">
+                    <h4><i class="fas fa-exclamation-circle"></i> 免责声明</h4>
+                    <p>本治疗方案由AI根据您提供的评估数据生成，仅供参考。请在专业医师指导下进行康复训练，如有不适请立即停止并就医。</p>
+                </div>
+            `;
+            
+            // 调试：检查内容是否已设置
+            console.log('治疗方案内容已设置，容器innerHTML长度:', contentDiv.innerHTML.length);
+            
+            console.log('治疗方案显示完成');
+        }
+        
+        // 显示治疗方案错误
+        function displayTreatmentPlanError(message) {
+            const contentDiv = document.getElementById('treatmentContent');
+            
+            if (!contentDiv) return;
+            
+            contentDiv.innerHTML = `
+                <div class="error-message">
+                    <h3><i class="fas fa-exclamation-triangle"></i> 生成治疗方案失败</h3>
+                    <p>${message}</p>
+                </div>
+                
+                <div class="disclaimer">
+                    <h4><i class="fas fa-exclamation-circle"></i> 免责声明</h4>
+                    <p>本治疗方案由AI根据您提供的评估数据生成，仅供参考。请在专业医师指导下进行康复训练，如有不适请立即停止并就医。</p>
+                </div>
+            `;
+        }
+        
+        // 发送消息
+        function sendMessage() {
+            const userInput = document.getElementById('userInput');
+            const message = userInput.value.trim();
+            
+            if (message && socket && socket.connected) {
+                // 显示用户消息
+                addMessageToChat('user', message);
+                
+                // 清空输入框
+                userInput.value = '';
+                
+                // 显示加载指示器
+                showLoadingIndicator();
+                
+                // 发送消息到AI服务端
+                socket.emit('chat-message', message, 'ai-service-room');
+            } else if (!socket || !socket.connected) {
+                addMessageToChat('ai', '错误：未连接到AI服务，请刷新页面重试');
+                removeLoadingIndicator();
+            }
+        }
+        
+        // 处理回车键发送
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+        
+        // 添加消息到聊天窗口
+        function addMessageToChat(role, content) {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) return;
+            
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${role}-message`;
+            
+            if (role === 'user') {
+                messageDiv.style.textAlign = 'right';
+            }
+            
+            messageDiv.innerHTML = content;
+            chatMessages.appendChild(messageDiv);
+            
+            // 滚动到底部
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // 显示加载指示器
+        function showLoadingIndicator() {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages) return;
+            
+            const loadingDiv = document.createElement('div');
+            loadingDiv.id = 'loadingIndicator';
+            loadingDiv.className = 'message ai-message';
+            loadingDiv.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 正在思考中...';
+            chatMessages.appendChild(loadingDiv);
+            
+            // 滚动到底部
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        // 移除加载指示器
+        function removeLoadingIndicator() {
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            if (loadingIndicator) {
+                loadingIndicator.remove();
+            }
+        }
+        
+        // 返回评估页面
+        function goBack() {
+            // 关闭socket连接
+            if (socket) {
+                socket.close();
+            }
+            
+            // 返回评估页面 - 直接跳转到带hash的URL
+            window.location.href = 'index.html#assessmentPage';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{
+  "name": "cervical-rehabilitation-assistant",
+  "version": "1.0.0",
+  "description": "颈椎康复助手 - 专业颈椎病康复管理解决方案",
+  "main": "js/main.js",
+  "type": "module",
+  "scripts": {
+    "start": "live-server --port=8080 --host=localhost --open=/index.html",
+    "dev": "live-server --port=8080 --host=localhost --watch=js,css --open=/index.html",
+    "build": "echo \"静态网站无需构建\" && exit 0",
+    "deploy": "vercel --prod",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "颈椎康复",
+    "康复助手",
+    "医疗应用",
+    "健康管理"
+  ],
+  "author": "Yu Hao Tian",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}
+

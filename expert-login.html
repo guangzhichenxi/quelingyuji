@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专家登录 - 颈椎康复助手</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 4rem;
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .login-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 20px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            color: #666;
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .qr-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 20px;
+        }
+
+        .qr-code {
+            width: 250px;
+            height: 250px;
+            margin: 0 auto 20px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .qr-placeholder {
+            color: #ccc;
+            font-size: 1rem;
+        }
+
+        .qr-tip {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .form-container {
+            text-align: left;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+        }
+
+        .login-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .status-message {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .status-message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+
+        .status-message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+
+        .expert-list {
+            margin-top: 30px;
+            text-align: left;
+        }
+
+        .expert-list h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .expert-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .expert-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .expert-info {
+            flex: 1;
+        }
+
+        .expert-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .expert-title {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .expert-status {
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            background: #28a745;
+            color: white;
+        }
+
+        @media (max-width: 600px) {
+            .login-container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .qr-code {
+                width: 200px;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <i class="fas fa-user-md"></i>
+        </div>
+        <h1>专家登录系统</h1>
+        <p class="subtitle">颈椎康复助手 - 在线问诊平台</p>
+
+        <!-- 登录方式切换 -->
+        <div class="login-tabs">
+            <button class="tab-btn active" data-tab="qrcode">
+                <i class="fas fa-qrcode"></i> 扫码登录
+            </button>
+            <button class="tab-btn" data-tab="form">
+                <i class="fas fa-keyboard"></i> 账号登录
+            </button>
+        </div>
+
+        <!-- 二维码登录 -->
+        <div class="tab-content active" id="qrcode-tab">
+            <div class="qr-container">
+                <div class="qr-code" id="qrCodeDiv">
+                    <div class="qr-placeholder">二维码加载中...</div>
+                </div>
+                <div class="qr-tip">
+                    <i class="fas fa-mobile-alt"></i> 请使用微信或浏览器扫描二维码登录<br>
+                    登录后将自动显示为在线状态
+                </div>
+            </div>
+        </div>
+
+        <!-- 表单登录 -->
+        <div class="tab-content" id="form-tab">
+            <div class="form-container">
+                <div class="form-group">
+                    <label for="expertName">
+                        <i class="fas fa-user"></i> 专家姓名
+                    </label>
+                    <input type="text" id="expertName" placeholder="请输入您的姓名">
+                </div>
+                <div class="form-group">
+                    <label for="expertTitle">
+                        <i class="fas fa-id-badge"></i> 职称
+                    </label>
+                    <select id="expertTitle">
+                        <option value="">请选择职称</option>
+                        <option value="主任医师">主任医师</option>
+                        <option value="副主任医师">副主任医师</option>
+                        <option value="主治医师">主治医师</option>
+                        <option value="康复治疗师">康复治疗师</option>
+                        <option value="物理治疗师">物理治疗师</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="expertSpecialty">
+                        <i class="fas fa-briefcase-medical"></i> 专业领域
+                    </label>
+                    <input type="text" id="expertSpecialty" placeholder="例如：颈椎病康复、脊柱外科">
+                </div>
+                <div class="form-group">
+                    <label for="expertExperience">
+                        <i class="fas fa-award"></i> 从业年限
+                    </label>
+                    <input type="number" id="expertExperience" placeholder="请输入从业年限" min="1">
+                </div>
+                <button class="login-btn" id="formLoginBtn">
+                    <i class="fas fa-sign-in-alt"></i> 立即登录
+                </button>
+            </div>
+        </div>
+
+        <!-- 状态消息 -->
+        <div class="status-message" id="statusMessage"></div>
+
+        <!-- 当前在线专家列表 -->
+        <div class="expert-list" id="onlineExpertsList" style="display: none;">
+            <h3><i class="fas fa-users"></i> 当前在线专家</h3>
+            <div id="expertsContainer"></div>
+        </div>
+    </div>
+
+    <!-- 引入QRCode.js库 -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+    <!-- 引入Socket.IO -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+    <script>
+        // 全局变量
+        let socket = null;
+        let currentExpert = null;
+        let qrCode = null;
+
+        // 切换登录方式
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const targetTab = this.dataset.tab;
+                
+                // 更新按钮状态
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                
+                // 更新内容显示
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
+                });
+                document.getElementById(targetTab + '-tab').classList.add('active');
+            });
+        });
+
+        // 生成二维码
+        function generateQRCode() {
+            const qrCodeDiv = document.getElementById('qrCodeDiv');
+            qrCodeDiv.innerHTML = ''; // 清空之前的内容
+            
+            // 生成唯一的登录令牌
+            const loginToken = 'expert_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+            
+            // 二维码内容：登录页面URL + 令牌
+            const loginUrl = window.location.origin + window.location.pathname + '?token=' + loginToken;
+            
+            try {
+                qrCode = new QRCode(qrCodeDiv, {
+                    text: loginUrl,
+                    width: 250,
+                    height: 250,
+                    colorDark: "#667eea",
+                    colorLight: "#ffffff",
+                    correctLevel: QRCode.CorrectLevel.H
+                });
+                
+                // 监听扫码登录
+                listenForTokenLogin(loginToken);
+            } catch (e) {
+                console.error('生成二维码失败:', e);
+                qrCodeDiv.innerHTML = '<div class="qr-placeholder">二维码生成失败</div>';
+            }
+        }
+
+        // 监听令牌登录
+        function listenForTokenLogin(token) {
+            // 这里可以通过WebSocket监听扫码结果
+            // 暂时使用URL参数检测
+            const urlParams = new URLSearchParams(window.location.search);
+            const urlToken = urlParams.get('token');
+            
+            if (urlToken && urlToken === token) {
+                showMessage('检测到扫码登录，请输入您的信息', 'success');
+                // 自动切换到表单登录
+                document.querySelector('[data-tab="form"]').click();
+            }
+        }
+
+        // 表单登录
+        document.getElementById('formLoginBtn').addEventListener('click', function() {
+            const name = document.getElementById('expertName').value.trim();
+            const title = document.getElementById('expertTitle').value;
+            const specialty = document.getElementById('expertSpecialty').value.trim();
+            const experience = document.getElementById('expertExperience').value;
+
+            // 验证表单
+            if (!name) {
+                showMessage('请输入您的姓名', 'error');
+                return;
+            }
+            if (!title) {
+                showMessage('请选择您的职称', 'error');
+                return;
+            }
+            if (!specialty) {
+                showMessage('请输入您的专业领域', 'error');
+                return;
+            }
+            if (!experience || experience < 1) {
+                showMessage('请输入有效的从业年限', 'error');
+                return;
+            }
+
+            // 创建专家对象
+            currentExpert = {
+                id: 'expert_' + Date.now(),
+                name: name,
+                title: title,
+                specialty: specialty,
+                experience: experience + '年临床经验',
+                avatarChar: name.charAt(0),
+                online: true,
+                loginTime: new Date().toISOString()
+            };
+
+            // 连接到服务器
+            connectToServer();
+        });
+
+        // 连接到信令服务器
+        function connectToServer() {
+            showMessage('正在连接服务器...', 'success');
+            
+            try {
+                // 部署到云服务器后，将 localhost 改为服务器IP或域名
+                const serverUrl = window.location.hostname === 'localhost' 
+                    ? 'http://localhost:3001' 
+                    : `http://${window.location.hostname}:3001`;
+                
+                socket = io(serverUrl, {
+                    transports: ['websocket', 'polling'],
+                    reconnection: true,
+                    reconnectionAttempts: 5,
+                    timeout: 10000
+                });
+                
+                console.log('正在连接到服务器:', serverUrl);
+
+                socket.on('connect', () => {
+                    console.log('已连接到信令服务器');
+                    
+                    // 专家上线
+                    socket.emit('expert-online', currentExpert);
+                    
+                    showMessage('登录成功！您已上线', 'success');
+                    
+                    // 3秒后跳转到专家聊天界面
+                    setTimeout(() => {
+                        // 将专家信息保存到sessionStorage
+                        sessionStorage.setItem('currentExpert', JSON.stringify(currentExpert));
+                        // 跳转到专家聊天界面
+                        window.location.href = 'expert-chat.html';
+                    }, 2000);
+                });
+
+                socket.on('connect_error', (error) => {
+                    console.error('连接失败:', error);
+                    showMessage('连接服务器失败，请确保服务器已启动', 'error');
+                });
+
+                socket.on('online-experts-list', (experts) => {
+                    console.log('收到在线专家列表:', experts);
+                    displayOnlineExperts(experts);
+                });
+
+            } catch (error) {
+                console.error('连接错误:', error);
+                showMessage('连接出错：' + error.message, 'error');
+            }
+        }
+
+        // 显示在线专家列表
+        function displayOnlineExperts(experts) {
+            const listDiv = document.getElementById('onlineExpertsList');
+            const container = document.getElementById('expertsContainer');
+            
+            if (!experts || experts.length === 0) {
+                listDiv.style.display = 'none';
+                return;
+            }
+
+            listDiv.style.display = 'block';
+            container.innerHTML = '';
+
+            experts.forEach(expert => {
+                const expertDiv = document.createElement('div');
+                expertDiv.className = 'expert-item';
+                expertDiv.innerHTML = `
+                    <div class="expert-avatar">${expert.avatarChar || expert.name.charAt(0)}</div>
+                    <div class="expert-info">
+                        <div class="expert-name">${expert.name}</div>
+                        <div class="expert-title">${expert.title} | ${expert.specialty || expert.experience}</div>
+                    </div>
+                    <div class="expert-status">在线中</div>
+                `;
+                container.appendChild(expertDiv);
+            });
+        }
+
+        // 显示消息
+        function showMessage(message, type) {
+            const msgDiv = document.getElementById('statusMessage');
+            msgDiv.textContent = message;
+            msgDiv.className = 'status-message ' + type;
+            
+            if (type === 'error') {
+                setTimeout(() => {
+                    msgDiv.style.display = 'none';
+                }, 5000);
+            }
+        }
+
+        // 页面加载完成
+        window.onload = function() {
+            console.log('专家登录页面加载完成');
+            
+            // 生成二维码
+            generateQRCode();
+            
+            // 检查是否已经登录
+            const savedExpert = sessionStorage.getItem('currentExpert');
+            if (savedExpert) {
+                currentExpert = JSON.parse(savedExpert);
+                showMessage('检测到已登录，正在跳转...', 'success');
+                setTimeout(() => {
+                    window.location.href = 'expert-chat.html';
+                }, 1000);
+            }
+        };
+    </script>
+</body>
+</html>
+

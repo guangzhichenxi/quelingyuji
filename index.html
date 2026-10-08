@@ -1,0 +1,1922 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>颈椎康复助手整合版</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/components/header.css">
+    <link rel="stylesheet" href="css/components/navigation.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link rel="stylesheet" href="css/components/game.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 头部 -->
+        <div class="app-header">
+            <h1 class="app-title">颈椎康复助手整合版</h1>
+            <p class="app-subtitle">专业颈椎病康复管理解决方案</p>
+        </div>
+        
+        <!-- 主内容区 -->
+        <div class="main-content">
+            <!-- 封面页 -->
+            <div id="coverPage" class="app-page active">
+                <div class="cover-page">
+                    <div class="cover-background"></div>
+                    <div class="cover-content">
+                        <div class="cover-logo">
+                            <i class="fas fa-bone fa-3x"></i>
+                        </div>
+                        <h1 class="cover-title">颈椎康复助手</h1>
+                        <p class="cover-subtitle">专业评估 · 个性治疗 · 全程监督 · 科学康复</p>
+                        <button id="startBtn" class="start-btn">
+                            开始康复之旅 <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 导航页 -->
+            <div id="navPage" class="app-page">
+                <div class="form-container">
+                    <h2 class="form-title"><i class="fas fa-compass"></i> 康复导航中心</h2>
+                    <p style="text-align: center; margin-bottom: 15px; color: #555;">
+                        请选择您需要的服务，我们将为您提供专业颈椎康复指导
+                    </p>
+                    <div class="nav-grid">
+                        <div class="nav-card" data-page="questionnaire">
+                            <div class="nav-icon">
+                                <i class="fas fa-file-medical"></i>
+                            </div>
+                            <h3 class="nav-title">健康问卷</h3>
+                            <p>专业病史采集</p>
+                        </div>
+                        <div class="nav-card" data-page="assessment">
+                            <div class="nav-icon">
+                                <i class="fas fa-clipboard-check"></i>
+                            </div>
+                            <h3 class="nav-title">康复评定</h3>
+                            <p>全面功能评估</p>
+                        </div>
+                        <div class="nav-card" data-page="treatment">
+                            <div class="nav-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <h3 class="nav-title">治疗方案</h3>
+                            <p>个性康复计划</p>
+                        </div>
+                        <div class="nav-card" data-page="education">
+                            <div class="nav-icon">
+                                <i class="fas fa-book-medical"></i>
+                            </div>
+                            <h3 class="nav-title">康复学院</h3>
+                            <p>知识库与课程</p>
+                        </div>
+                        <div class="nav-card" data-page="posture">
+                            <div class="nav-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3 class="nav-title">坐姿检测</h3>
+                            <p>实时姿势分析</p>
+                        </div>
+                        <div class="nav-card" data-page="cases">
+                            <div class="nav-icon">
+                                <i class="fas fa-folder-open"></i>
+                            </div>
+                            <h3 class="nav-title">案例库</h3>
+                            <p>成功康复案例</p>
+                        </div>
+                        <div class="nav-card" data-page="expert">
+                            <div class="nav-icon">
+                                <i class="fas fa-stethoscope"></i>
+                            </div>
+                            <h3 class="nav-title">专家问诊</h3>
+                            <p>专业诊断建议</p>
+                        </div>
+                        <div class="nav-card" data-page="al-monitor">
+                            <div class="nav-icon">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            <h3 class="nav-title">AL颈椎监测</h3>
+                            <p>AI实时监测</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 健康问卷页面 -->
+            <div id="questionnairePage" class="app-page">
+                <div class="questionnaire-container">
+                    <h2 class="form-title"><i class="fas fa-file-medical"></i> 颈椎健康问卷</h2>
+                    <p style="text-align: center; margin-bottom: 15px; color: #555;">
+                        请回答以下问题，帮助我们了解您的颈椎健康状况
+                    </p>
+                    
+                    <div class="form-group">
+                        <label class="form-label">1. 请选择您的性别</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="男"> 男
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="gender" value="女"> 女
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">2. 请输入您的姓名</label>
+                        <input type="text" id="patientName" class="form-control" placeholder="请输入姓名">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">3. 请输入您的年龄</label>
+                        <input type="number" id="patientAge" class="form-control" placeholder="请输入年龄">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">4. 请输入您的职业</label>
+                        <input type="text" id="occupation" class="form-control" placeholder="例如：IT工程师、会计、教师">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">5. 您是否存在以下不适症状？(可多选)</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="symptoms" value="颈痛"> 颈痛
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="symptoms" value="左上肢痛"> 左上肢痛
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="symptoms" value="右上肢痛"> 右上肢痛
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="symptoms" value="手麻"> 手麻
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="symptoms" value="提物无力"> 提物无力
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="symptoms" value="双足踩棉花感"> 双足踩棉花感
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="symptoms" value="束胸感"> 束胸感
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="symptoms" value="下肢麻木"> 下肢麻木
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">6. 症状持续时间</label>
+                        <input type="text" id="duration" class="form-control" placeholder="例如：3个月、2周">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">7. 疼痛程度(0-10分)</label>
+                        <input type="number" id="painLevel" class="form-control" min="0" max="10" placeholder="0=无痛, 10=剧痛">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">8. 工作性质</label>
+                        <select id="workType" class="form-control">
+                            <option value="">请选择</option>
+                            <option value="长时间伏案">长时间伏案</option>
+                            <option value="体力劳动">体力劳动</option>
+                            <option value="混合型">混合型</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">9. 每天低头时长</label>
+                        <input type="text" id="screenTime" class="form-control" placeholder="例如：8小时">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">10. 运动频率</label>
+                        <select id="exercise" class="form-control">
+                            <option value="">请选择</option>
+                            <option value="几乎不运动">几乎不运动</option>
+                            <option value="每周1-2次">每周1-2次</option>
+                            <option value="每周3-5次">每周3-5次</option>
+                            <option value="每天">每天</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">11. 睡眠质量</label>
+                        <select id="sleepQuality" class="form-control">
+                            <option value="">请选择</option>
+                            <option value="很好">很好</option>
+                            <option value="较好">较好</option>
+                            <option value="一般">一般</option>
+                            <option value="较差">较差</option>
+                            <option value="很差">很差</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">5. 您的症状通常在什么时间加重？</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="aggravating_factors" value="morning"> 早晨起床时
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="aggravating_factors" value="evening"> 傍晚或晚上
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="aggravating_factors" value="after_work"> 工作后
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="aggravating_factors" value="during_sleep"> 睡眠中
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">6. 您是否曾接受过颈椎病治疗？</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="treatment_history" value="yes"> 是
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="treatment_history" value="no"> 否
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">7. 请描述您的职业和工作习惯</label>
+                        <textarea class="form-control" rows="3" placeholder="例如：办公室职员，每天使用电脑8小时，坐姿不良..."></textarea>
+                    </div>
+                    
+                    <!-- 新增的12个问题 -->
+                    <div class="form-group">
+                        <label class="form-label">8. 你这些症状是否影响你的日常生活活动（日常护理，提重物，阅读，集中注意力，工作，娱乐，驾驶或坐车以及睡眠情况）？</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="daily_impact" value="no_impact"> 出现症状但不影响日常生活
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="daily_impact" value="mild_impact"> 症状影响日常生活，但不需要帮助
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="daily_impact" value="moderate_impact"> 症状严重影响日常生活，需要帮助
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="daily_impact" value="severe_impact"> 症状导致日常生活完全无法进行
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">9. 描述你的疼痛程度？</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="pain_type" value="sore"> 酸胀痛
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="pain_type" value="dull"> 隐隐钝痛
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="pain_type" value="sharp"> 针刺痛
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="pain_type" value="radiating"> 放射痛
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="pain_type" value="electric"> 电击样疼痛
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="pain_type" value="burning"> 烧灼感疼痛
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="pain_type" value="none"> 无
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">10. 什么情况会出现疼痛？</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="pain_occurrence" value="no_pain"> 无痛
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="pain_occurrence" value="rest"> 在休息或颈部活动范围小时就会有疼痛
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="pain_occurrence" value="movement"> 在颈部活动范围较大时才有疼痛
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="pain_occurrence" value="independent"> 疼痛与颈部活动无关
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">11. 您的症状出现是哪一种表现？</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="symptom_pattern" value="intermittent"> 间断性，自行缓解
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="symptom_pattern" value="persistent_relieved"> 持续性，但活动或自行治疗后能够缓解
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="symptom_pattern" value="persistent_unrelieved"> 持续性，无法缓解
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">12. 您的症状持续多久了？</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="symptom_duration" value="2_weeks"> 2周
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="symptom_duration" value="6_weeks"> 6周
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="symptom_duration" value="6_12_weeks"> 6周-12周
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="symptom_duration" value="over_12_weeks"> 超过12周
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">13. 您的症状出现的频率？</label>
+                        <div class="radio-group">
+                            <label class="radio-label">
+                                <input type="radio" name="symptom_frequency" value="rare"> 很少发作(每月少于1次)
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="symptom_frequency" value="occasional"> 偶尔发作(每月1-3次)
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="symptom_frequency" value="frequent"> 经常发作(每周1-3次)
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="symptom_frequency" value="very_frequent"> 频繁发作(每周大于3次)
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">14. 您是否患有以下疾病？</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="diseases" value="acute_injury"> 急性颈椎损伤
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="diseases" value="tumor"> 肿瘤
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="diseases" value="inflammation"> 颈部炎症
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="diseases" value="infection"> 颈部感染
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="diseases" value="artery_stenosis"> 严重椎动脉狭窄
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="diseases" value="mental_disorder"> 严重精神障碍
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="diseases" value="post_surgery"> 颈椎术后
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="diseases" value="none"> 无
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <button class="start-btn" id="submitQuestionnaireBtn" style="width: 100%; margin-top: 20px;">
+                        提交问卷 <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- 康复评定页面 -->
+            <div id="assessmentPage" class="app-page">
+                <div class="form-container">
+                    <h2 class="form-title"><i class="fas fa-clipboard-check"></i> 颈椎功能评定</h2>
+                    <p style="text-align: center; margin-bottom: 15px; color: #555;">
+                        请完成以下评估测试，了解您的颈椎功能状况
+                    </p>
+                    
+                    <!-- 颈椎活动度检测 -->
+                    <div class="rom-container">
+                        <h3 class="treatment-title"><i class="fas fa-arrows-alt-v"></i> 颈椎活动度检测</h3>
+                        <div class="rom-video-container">
+                            <video id="rom-video" autoplay playsinline></video>
+                            <div class="rom-status" id="romStatus">准备检测</div>
+                        </div>
+                        <div class="rom-controls">
+                            <button class="rom-btn" id="romStartBtn">开始检测</button>
+                            <button class="rom-btn stop" id="romStopBtn" disabled>停止检测</button>
+                            <select id="romDirection" class="rom-btn">
+                                <option value="flexion">前屈</option>
+                                <option value="extension">后伸</option>
+                                <option value="left">左侧屈</option>
+                                <option value="right">右侧屈</option>
+                                <option value="rotationLeft">左旋转</option>
+                                <option value="rotationRight">右旋转</option>
+                            </select>
+                        </div>
+                        <div class="rom-slider-container">
+                            <input type="range" min="0" max="100" value="0" class="rom-slider" id="romSlider">
+                            <div class="rom-value" id="romValue">活动度: 0°</div>
+                            <div class="rom-feedback" id="romFeedback">
+                                <div class="rom-emoji">😊</div>
+                                <div>请开始活动您的颈部</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 新增部分：VAS量表可视化评估 -->
+                    <div class="vas-container">
+                        <h3 class="treatment-title"><i class="fas fa-smile"></i> VAS疼痛视觉模拟评分</h3>
+                        <div class="vas-header">
+                            <span>无痛</span>
+                            <span>剧痛</span>
+                        </div>
+                        <div class="vas-slider-container">
+                            <input type="range" min="0" max="10" step="0.5" value="0" class="vas-slider" id="vasSliderAssessment">
+                            <div class="vas-emoji" id="vasEmojiAssessment">😊</div>
+                        </div>
+                        <div class="vas-value" id="vasValueAssessment">0</div>
+                        <div class="vas-labels">
+                            <span>0</span>
+                            <span>1</span>
+                            <span>2</span>
+                            <span>3</span>
+                            <span>4</span>
+                            <span>5</span>
+                            <span>6</span>
+                            <span>7</span>
+                            <span>8</span>
+                            <span>9</span>
+                            <span>10</span>
+                        </div>
+                        <div id="painDescription" style="text-align: center; margin-top: 10px; font-size: 0.9rem; color: var(--primary-dark);">
+                            无痛
+                        </div>
+                    </div>
+                    
+                    <!-- 肌力检查 -->
+                    <div class="special-test-container">
+                        <h3 class="treatment-title"><i class="fas fa-dumbbell"></i> 肌力检查</h3>
+                        <div class="special-test-grid">
+                            <div class="test-card" data-test="flexion">
+                                <i class="fas fa-arrow-up"></i>
+                                <h4>前屈肌力</h4>
+                                <div class="test-result">未测试</div>
+                            </div>
+                            <div class="test-card" data-test="extension">
+                                <i class="fas fa-arrow-down"></i>
+                                <h4>后伸肌力</h4>
+                                <div class="test-result">未测试</div>
+                            </div>
+                            <div class="test-card" data-test="left_flexion">
+                                <i class="fas fa-arrow-left"></i>
+                                <h4>左侧屈肌力</h4>
+                                <div class="test-result">未测试</div>
+                            </div>
+                            <div class="test-card" data-test="right_flexion">
+                                <i class="fas fa-arrow-right"></i>
+                                <h4>右侧屈肌力</h4>
+                                <div class="test-result">未测试</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 特殊检查 -->
+                    <div class="special-test-container">
+                        <h3 class="treatment-title"><i class="fas fa-search"></i> 特殊检查</h3>
+                        <div class="special-test-grid">
+                            <div class="test-card" data-test="spurling">
+                                <i class="fas fa-hands"></i>
+                                <h4>Spurling试验</h4>
+                                <div class="test-result">未测试</div>
+                            </div>
+                            <div class="test-card" data-test="arm_pull">
+                                <i class="fas fa-hand-point-up"></i>
+                                <h4>臂丛牵拉试验</h4>
+                                <div class="test-result">未测试</div>
+                            </div>
+                            <div class="test-card" data-test="foramen_compression">
+                                <i class="fas fa-compress-alt"></i>
+                                <h4>椎间孔挤压试验</h4>
+                                <div class="test-result">未测试</div>
+                            </div>
+                            <div class="test-card" data-test="hoffman">
+                                <i class="fas fa-running"></i>
+                                <h4>霍夫曼征</h4>
+                                <div class="test-result">未测试</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NDI量表 -->
+                    <div class="special-test-container">
+                        <h3 class="treatment-title"><i class="fas fa-list-ol"></i> NDI颈椎功能障碍指数</h3>
+                        <div class="scale-item">
+                            <div class="scale-question">1. 疼痛强度</div>
+                            <div class="scale-options">
+                                <div class="scale-option">无痛</div>
+                                <div class="scale-option">轻度</div>
+                                <div class="scale-option">中度</div>
+                                <div class="scale-option">重度</div>
+                                <div class="scale-option">极度</div>
+                            </div>
+                        </div>
+                        <div class="scale-item">
+                            <div class="scale-question">2. 个人护理</div>
+                            <div class="scale-options">
+                                <div class="scale-option">无困难</div>
+                                <div class="scale-option">轻度困难</div>
+                                <div class="scale-option">中度困难</div>
+                                <div class="scale-option">重度困难</div>
+                                <div class="scale-option">无法完成</div>
+                            </div>
+                        </div>
+                        <div class="scale-item">
+                            <div class="scale-question">3. 提物</div>
+                            <div class="scale-options">
+                                <div class="scale-option">无困难</div>
+                                <div class="scale-option">轻度困难</div>
+                                <div class="scale-option">中度困难</div>
+                                <div class="scale-option">重度困难</div>
+                                <div class="scale-option">无法完成</div>
+                            </div>
+                        </div>
+                        <div class="scale-item">
+                            <div class="scale-question">4. 阅读</div>
+                            <div class="scale-options">
+                                <div class="scale-option">无困难</div>
+                                <div class="scale-option">轻度困难</div>
+                                <div class="scale-option">中度困难</div>
+                                <div class="scale-option">重度困难</div>
+                                <div class="scale-option">无法完成</div>
+                            </div>
+                        </div>
+                        <div class="scale-item">
+                            <div class="scale-question">5. 头痛</div>
+                            <div class="scale-options">
+                                <div class="scale-option">无</div>
+                                <div class="scale-option">轻度</div>
+                                <div class="scale-option">中度</div>
+                                <div class="scale-option">重度</div>
+                                <div class="scale-option">非常严重</div>
+                            </div>
+                        </div>
+                        <div class="scale-item">
+                            <div class="scale-question">6. 注意力集中</div>
+                            <div class="scale-options">
+                                <div class="scale-option">无困难</div>
+                                <div class="scale-option">轻度困难</div>
+                                <div class="scale-option">中度困难</div>
+                                <div class="scale-option">重度困难</div>
+                                <div class="scale-option">无法完成</div>
+                            </div>
+                        </div>
+                        <div class="scale-item">
+                            <div class="scale-question">7. 工作</div>
+                            <div class="scale-options">
+                                <div class="scale-option">无困难</div>
+                                <div class="scale-option">轻度困难</div>
+                                <div class="scale-option">中度困难</div>
+                                <div class="scale-option">重度困难</div>
+                                <div class="scale-option">无法工作</div>
+                            </div>
+                        </div>
+                        <div class="scale-item">
+                            <div class="scale-question">8. 驾驶</div>
+                            <div class="scale-options">
+                                <div class="scale-option">无困难</div>
+                                <div class="scale-option">轻度困难</div>
+                                <div class="scale-option">中度困难</div>
+                                <div class="scale-option">重度困难</div>
+                                <div class="scale-option">无法驾驶</div>
+                            </div>
+                        </div>
+                        <div class="scale-item">
+                            <div class="scale-question">9. 睡眠</div>
+                            <div class="scale-options">
+                                <div class="scale-option">无困难</div>
+                                <div class="scale-option">轻度困难</div>
+                                <div class="scale-option">中度困难</div>
+                                <div class="scale-option">重度困难</div>
+                                <div class="scale-option">无法入睡</div>
+                            </div>
+                        </div>
+                        <div class="scale-item">
+                            <div class="scale-question">10. 娱乐</div>
+                            <div class="scale-options">
+                                <div class="scale-option">无困难</div>
+                                <div class="scale-option">轻度困难</div>
+                                <div class="scale-option">中度困难</div>
+                                <div class="scale-option">重度困难</div>
+                                <div class="scale-option">无法进行</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="submitAssessmentBtn" class="start-btn" style="width: 100%; margin-top: 20px;">
+                        提交评估 <i class="fas fa-check-circle"></i>
+                    </button>
+                    
+                    <!-- ICF总结 -->
+                    <div class="icf-summary">
+                        <h3 class="form-title"><i class="fas fa-clipboard-list"></i> ICF架构总结</h3>
+                        <div class="icf-section">
+                            <div class="icf-title"><i class="fas fa-user-injured"></i> 身体功能与结构</div>
+                            <ul>
+                                <li>颈椎活动度受限（前屈40°，后伸35°）</li>
+                                <li>颈部肌肉紧张（斜方肌、肩胛提肌）</li>
+                                <li>颈5-6椎间盘突出</li>
+                            </ul>
+                        </div>
+                        <div class="icf-section">
+                            <div class="icf-title"><i class="fas fa-tasks"></i> 活动与参与</div>
+                            <ul>
+                                <li>长时间电脑工作困难（超过1小时）</li>
+                                <li>驾驶时间受限（不超过30分钟）</li>
+                                <li>睡眠质量下降（夜间易醒）</li>
+                            </ul>
+                        </div>
+                        <div class="icf-section">
+                            <div class="icf-title"><i class="fas fa-diagnoses"></i> 诊断结果</div>
+                            <p style="font-weight: 600; color: var(--primary-dark);">神经根型颈椎病（中度）</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 治疗页面 -->
+            <div id="treatmentPage" class="app-page">
+                <div class="form-container">
+                    <h2 class="form-title"><i class="fas fa-heartbeat"></i> 颈椎病治疗方案</h2>
+                    <p style="text-align: center; margin-bottom: 15px; color: #555;">
+                        根据您的评估结果，为您推荐以下治疗方案
+                    </p>
+                    
+                    <div class="treatment-tabs">
+                        <div class="treatment-tab active" data-tab="acute">急性期</div>
+                        <div class="treatment-tab" data-tab="recovery">恢复期</div>
+                        <div class="treatment-tab" data-tab="stable">稳定期</div>
+                    </div>
+                    
+                    <div class="treatment-content active" id="acuteContent">
+                        <div class="treatment-plan">
+                            <h3 class="treatment-title"><i class="fas fa-bolt"></i> 急性期治疗方案 (1-2周)</h3>
+                            <p class="treatment-desc">此阶段以缓解疼痛、减轻炎症和肌肉痉挛为主要目标。</p>
+                            <ul class="treatment-list">
+                                <li><strong>休息：</strong>避免加重症状的活动，必要时佩戴颈托限制活动</li>
+                                <li><strong>冷敷：</strong>每次15-20分钟，每天3-4次，减轻炎症</li>
+                                <li><strong>药物治疗：</strong>非甾体抗炎药（如布洛芬）、肌肉松弛剂</li>
+                                <li><strong>物理治疗：</strong>超短波、低频电刺激等物理因子治疗</li>
+                                <li><strong>姿势调整：</strong>使用符合人体工学的枕头和座椅</li>
+                                <li><strong>轻柔活动：</strong>在无痛范围内进行颈部轻柔活动</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="treatment-content" id="recoveryContent">
+                        <div class="treatment-plan">
+                            <h3 class="treatment-title"><i class="fas fa-heartbeat"></i> 恢复期治疗方案 (2-6周)</h3>
+                            <p class="treatment-desc">此阶段以恢复颈部活动度、增强肌肉力量和改善功能为主要目标。</p>
+                            <ul class="treatment-list">
+                                <li><strong>热疗：</strong>使用热敷放松肌肉，改善血液循环</li>
+                                <li><strong>牵引治疗：</strong>在专业人员指导下进行颈椎牵引</li>
+                                <li><strong>手法治疗：</strong>专业物理治疗师进行软组织松解和关节松动</li>
+                                <li><strong>运动疗法：</strong>颈部活动度训练、等长收缩训练</li>
+                                <li><strong>姿势训练：</strong>学习正确的坐姿和站姿</li>
+                                <li><strong>工作调整：</strong>优化工作环境和工作姿势</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="treatment-content" id="stableContent">
+                        <div class="treatment-plan">
+                            <h3 class="treatment-title"><i class="fas fa-shield-alt"></i> 稳定期治疗方案 (6周以上)</h3>
+                            <p class="treatment-desc">此阶段以增强颈部稳定性、预防复发和恢复正常功能为主要目标。</p>
+                            <ul class="treatment-list">
+                                <li><strong>强化训练：</strong>颈部深层肌肉强化训练</li>
+                                <li><strong>耐力训练：</strong>提高颈部肌肉耐力</li>
+                                <li><strong>功能训练：</strong>模拟日常生活和工作活动进行训练</li>
+                                <li><strong>本体感觉训练：</strong>闭眼头部定位等训练</li>
+                                <li><strong>有氧运动：</strong>游泳、快走等全身性运动</li>
+                                <li><strong>健康教育：</strong>学习预防颈椎病复发的知识</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="treatment-plan">
+                        <h3 class="treatment-title"><i class="fas fa-calendar-check"></i> 康复计划时间表</h3>
+                        <div style="overflow-x: auto;">
+                            <table style="width: 100%; border-collapse: collapse;">
+                                <thead>
+                                    <tr style="background: #e3f2fd;">
+                                        <th style="padding: 10px; border: 1px solid #bbdefb; text-align: left;">阶段</th>
+                                        <th style="padding: 10px; border: 1px solid #bbdefb; text-align: left;">时间</th>
+                                        <th style="padding: 10px; border: 1px solid #bbdefb; text-align: left;">治疗重点</th>
+                                        <th style="padding: 10px; border: 1px solid #bbdefb; text-align: left;">频率</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid #bbdefb;">急性期</td>
+                                        <td style="padding: 10px; border: 1px solid #bbdefb;">1-2周</td>
+                                        <td style="padding: 10px; border: 1px solid #bbdefb;">疼痛控制、炎症消退</td>
+                                        <td style="padding: 10px; border: 1px solid #bbdefb;">每天2-3次</td>
+                                    </tr>
+                                    <tr style="background: #f5f9ff;">
+                                        <td style="padding: 10px; border: 1px solid #bbdefb;">恢复期</td>
+                                        <td style="padding: 10px; border: 1px solid #bbdefb;">2-6周</td>
+                                        <td style="padding: 10px; border: 1px solid #bbdefb;">活动度恢复、肌力训练</td>
+                                        <td style="padding: 10px; border: 1px solid #bbdefb;">每天1-2次</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding: 10px; border: 1px solid #bbdefb;">稳定期</td>
+                                        <td style="padding: 10px; border: 1px solid #bbdefb;">6周以上</td>
+                                        <td style="padding: 10px; border: 1px solid #bbdefb;">功能强化、预防复发</td>
+                                        <td style="padding: 10px; border: 1px solid #bbdefb;">每周3-5次</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 康复学院页面 -->
+            <div id="educationPage" class="app-page">
+                <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+                    <div class="hero-section">
+                        <div class="hero-content">
+                            <h1>颈椎康复学院</h1>
+                            <p>专业颈椎解剖知识与康复训练指导平台</p>
+                            <a href="#anatomy" class="cta-button">开始学习 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                    
+                    <section class="section" id="anatomy">
+                        <div class="section-header">
+                            <h2 class="section-title">颈椎解剖知识</h2>
+                            <p class="section-subtitle">了解颈椎结构是康复的第一步</p>
+                        </div>
+                        <div class="card-grid">
+                            <div class="card" data-detail="spineStructure">
+                                <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="颈椎结构" class="card-img">
+                                <div class="card-content">
+                                    <h4 class="card-title">颈椎骨骼结构</h4>
+                                    <p class="card-text">了解颈椎椎骨、椎间盘和关节的组成及其功能。</p>
+                                    <a href="#" class="card-link detail-link">了解更多 <i class="fas fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="card" data-detail="nerveVascular">
+                                <img src="https://images.unsplash.com/photo-1532938911079-1b06ac7ceec7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1332&q=80" alt="神经血管" class="card-img">
+                                <div class="card-content">
+                                    <h4 class="card-title">神经与血管</h4>
+                                    <p class="card-text">颈椎区域重要的神经和血管分布及其功能。</p>
+                                    <a href="#" class="card-link detail-link">了解更多 <i class="fas fa-chevron-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <div class="ai-section">
+                        <div class="ai-container">
+                            <div class="ai-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h2 class="section-title" style="color: white;">AI数字人指导</h2>
+                            <p style="max-width: 800px; font-size: 1.2rem; margin-bottom: 20px;">
+                                我们的AI数字人康复助手结合人工智能技术与专业医学知识，为您提供个性化的颈椎康复指导方案。
+                            </p>
+                            <div class="ai-features">
+                                <div class="ai-feature">
+                                    <i class="fas fa-brain"></i>
+                                    <h3>智能评估</h3>
+                                    <p>通过简单问卷和动作捕捉，评估您的颈椎状况</p>
+                                </div>
+                                <div class="ai-feature">
+                                    <i class="fas fa-dumbbell"></i>
+                                    <h3>个性化训练</h3>
+                                    <p>根据评估结果生成专属康复训练计划</p>
+                                </div>
+                                <div class="ai-feature">
+                                    <i class="fas fa-video"></i>
+                                    <h3>动作指导</h3>
+                                    <p>实时动作捕捉与纠正，确保训练准确性</p>
+                                </div>
+                                <div class="ai-feature">
+                                    <i class="fas fa-chart-line"></i>
+                                    <h3>进度追踪</h3>
+                                    <p>详细记录康复进展，动态调整训练方案</p>
+                                </div>
+                            </div>
+                            <a href="#" class="ai-button">立即体验数字人指导 <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+           </div>
+            
+            <!-- 脊椎骨骼结构详情页 -->
+            <div id="spineStructurePage" class="app-page">
+                <div class="form-container" style="max-width: 1000px;">
+                    <button class="back-btn" style="margin-bottom: 20px; padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer;">
+                        <i class="fas fa-arrow-left"></i> 返回学院
+                    </button>
+                    
+                    <div style="text-align: center; margin-bottom: 40px; padding: 30px; background: linear-gradient(135deg, #1e88e5 0%, #0d47a1 100%); border-radius: 15px; color: white;">
+                        <div style="font-size: 3rem; margin-bottom: 15px;"><i class="fas fa-bone"></i></div>
+                        <h1 style="font-size: 2rem; margin-bottom: 10px;">颈椎骨骼结构详解</h1>
+                        <p style="font-size: 1.1rem; opacity: 0.9;">深入了解颈椎的解剖结构，为康复训练打下坚实基础</p>
+                    </div>
+                    
+                    <!-- 1. 颈椎基本组成 -->
+                    <div style="margin-bottom: 40px;">
+                        <h2 class="form-title"><i class="fas fa-puzzle-piece"></i> 颈椎基本组成</h2>
+                        
+                        <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #1e88e5;">
+                            <h4 style="color: #0d47a1; margin-bottom: 10px;"><i class="fas fa-info-circle"></i> 概述</h4>
+                            <p style="line-height: 1.8; color: #333;">
+                                颈椎（Cervical Spine）由<strong>7节椎骨</strong>组成，从上到下依次编号为C1-C7。这7节椎骨共同构成了颈部的骨性支架，不仅承担着支撑头部的重要任务（成人头部重量约4-6公斤），还保护着脊髓这一重要的神经通路。
+                            </p>
+                            <p style="line-height: 1.8; color: #333; margin-top: 10px;">
+                                颈椎的独特设计使其成为全身脊柱中<strong>活动度最大</strong>的区域，可以完成前屈、后伸、侧屈和旋转等多方向运动，这些运动的组合使我们能够自如地转动头部，观察周围环境。
+                            </p>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                            <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <div style="background: #e8f5e9; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+                                    <h4 style="color: #2e7d32;"><i class="fas fa-bone"></i> 7节颈椎骨（C1-C7）</h4>
+                                </div>
+                                <ul style="list-style: none; padding: 0; line-height: 2;">
+                                    <li style="margin-bottom: 10px; padding-left: 10px; border-left: 3px solid #4caf50;">
+                                        <strong>C1（寰椎 Atlas）：</strong>环状结构，无椎体，承载颅骨
+                                    </li>
+                                    <li style="margin-bottom: 10px; padding-left: 10px; border-left: 3px solid #4caf50;">
+                                        <strong>C2（枢椎 Axis）：</strong>具有齿状突，允许头部旋转
+                                    </li>
+                                    <li style="margin-bottom: 10px; padding-left: 10px; border-left: 3px solid #4caf50;">
+                                        <strong>C3-C6（典型颈椎）：</strong>具有标准颈椎特征
+                                    </li>
+                                    <li style="margin-bottom: 10px; padding-left: 10px; border-left: 3px solid #4caf50;">
+                                        <strong>C7（隆椎）：</strong>棘突最长，易于体表触摸定位
+                                    </li>
+                                </ul>
+                                <div style="background: #fff3e0; padding: 12px; border-radius: 6px; margin-top: 15px;">
+                                    <p style="margin: 0; font-size: 0.9rem; color: #e65100;">
+                                        <i class="fas fa-lightbulb"></i> <strong>临床提示：</strong>低头时，颈后最突出的骨性标志即为C7棘突，这是临床检查的重要定位标志。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                                <div style="background: #e3f2fd; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+                                    <h4 style="color: #1976d2;"><i class="fas fa-circle"></i> 椎间盘（Intervertebral Disc）</h4>
+                                </div>
+                                <p style="line-height: 1.8; margin-bottom: 15px;">
+                                    位于相邻椎骨之间，共有<strong>6个颈椎间盘</strong>（C2/3至C7/T1），约占颈椎总长度的25%。
+                                </p>
+                                <ul style="list-style: none; padding: 0; line-height: 2;">
+                                    <li style="margin-bottom: 10px;">
+                                        <i class="fas fa-check-circle" style="color: #1e88e5;"></i> <strong>缓冲作用：</strong>吸收和分散脊柱承受的压力
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <i class="fas fa-check-circle" style="color: #1e88e5;"></i> <strong>维持高度：</strong>保持椎体间距离，确保神经根通道
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <i class="fas fa-check-circle" style="color: #1e88e5;"></i> <strong>允许运动：</strong>椎间盘的弹性使颈椎能够活动
+                                    </li>
+                                    <li style="margin-bottom: 10px;">
+                                        <i class="fas fa-check-circle" style="color: #1e88e5;"></i> <strong>随龄变化：</strong>20岁后逐渐退变，含水量减少
+                                    </li>
+                                </ul>
+                                <div style="background: #ffebee; padding: 12px; border-radius: 6px; margin-top: 15px;">
+                                    <p style="margin: 0; font-size: 0.9rem; color: #c62828;">
+                                        <i class="fas fa-exclamation-triangle"></i> <strong>常见问题：</strong>长期低头、外伤等可导致椎间盘突出，压迫神经根引起上肢疼痛麻木。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 2. 特殊椎骨详解 -->
+                    <div style="margin-bottom: 40px;">
+                        <h2 class="form-title"><i class="fas fa-star"></i> 特殊椎骨详解</h2>
+                        
+                        <!-- C1 寰椎 -->
+                        <div style="background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%); padding: 25px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                <span style="background: white; padding: 10px 20px; border-radius: 50px; font-weight: bold; color: #f57c00;">C1</span>
+                                <h3 style="margin: 0; color: #e65100;">寰椎（Atlas）</h3>
+                                <span style="background: #ff6f00; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem;">最特殊</span>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <h4 style="color: #e65100; margin-bottom: 15px;"><i class="fas fa-circle-notch"></i> 结构特点</h4>
+                                <ul style="line-height: 2; color: #333;">
+                                    <li><strong>无椎体和棘突：</strong>是唯一没有椎体的椎骨</li>
+                                    <li><strong>环状结构：</strong>由前弓、后弓和两个侧块组成</li>
+                                    <li><strong>上关节面：</strong>呈肾形，凹陷，与枕骨髁相关节</li>
+                                    <li><strong>下关节面：</strong>近圆形，平坦，与C2上关节面相接</li>
+                                    <li><strong>横突孔：</strong>椎动脉通过</li>
+                                </ul>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <h4 style="color: #e65100; margin-bottom: 15px;"><i class="fas fa-running"></i> 运动功能</h4>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; text-align: center;">
+                                        <i class="fas fa-arrows-alt-v" style="font-size: 2rem; color: #1e88e5; margin-bottom: 10px;"></i>
+                                        <p style="margin: 0; font-weight: bold;">点头运动</p>
+                                        <p style="margin: 5px 0 0; color: #666; font-size: 0.9rem;">前后屈约15-20°</p>
+                                    </div>
+                                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; text-align: center;">
+                                        <i class="fas fa-arrows-alt-h" style="font-size: 2rem; color: #1e88e5; margin-bottom: 10px;"></i>
+                                        <p style="margin: 0; font-weight: bold;">侧屈运动</p>
+                                        <p style="margin: 5px 0 0; color: #666; font-size: 0.9rem;">左右侧屈约5-10°</p>
+                                    </div>
+                                </div>
+                                <div style="background: #e1f5fe; padding: 12px; border-radius: 6px; margin-top: 15px;">
+                                    <p style="margin: 0; color: #01579b;">
+                                        <i class="fas fa-info-circle"></i> <strong>功能意义：</strong>寰枕关节允许头部点头动作，如表示"是"。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px;">
+                                <h4 style="color: #e65100; margin-bottom: 15px;"><i class="fas fa-stethoscope"></i> 临床意义</h4>
+                                <ul style="line-height: 2; color: #333;">
+                                    <li><strong>Jefferson骨折：</strong>寰椎爆裂性骨折，多由高处坠落头顶着地引起</li>
+                                    <li><strong>寰枕畸形：</strong>先天发育异常，可压迫延髓</li>
+                                    <li><strong>易损伤性：</strong>结构特殊，外伤时易发生骨折或脱位</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <!-- C2 枢椎 -->
+                        <div style="background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 100%); padding: 25px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                <span style="background: white; padding: 10px 20px; border-radius: 50px; font-weight: bold; color: #0277bd;">C2</span>
+                                <h3 style="margin: 0; color: #01579b;">枢椎（Axis）</h3>
+                                <span style="background: #0277bd; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem;">最重要</span>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <h4 style="color: #01579b; margin-bottom: 15px;"><i class="fas fa-tooth"></i> 结构特点</h4>
+                                <ul style="line-height: 2; color: #333;">
+                                    <li><strong>齿状突（齿突）：</strong>向上伸入寰椎前弓后方，是枢椎最显著的特征</li>
+                                    <li><strong>齿突高度：</strong>约15mm，呈圆柱形或锥形</li>
+                                    <li><strong>关节面：</strong>齿突前面有关节面，与寰椎前弓形成寰齿正中关节</li>
+                                    <li><strong>椎体：</strong>较大，呈方形</li>
+                                    <li><strong>棘突：</strong>粗大，分叉</li>
+                                </ul>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <h4 style="color: #01579b; margin-bottom: 15px;"><i class="fas fa-sync-alt"></i> 运动功能</h4>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; text-align: center;">
+                                        <i class="fas fa-redo" style="font-size: 2rem; color: #4caf50; margin-bottom: 10px;"></i>
+                                        <p style="margin: 0; font-weight: bold;">旋转运动</p>
+                                        <p style="margin: 5px 0 0; color: #666; font-size: 0.9rem;">左右各约40-45°</p>
+                                    </div>
+                                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; text-align: center;">
+                                        <i class="fas fa-cog" style="font-size: 2rem; color: #4caf50; margin-bottom: 10px;"></i>
+                                        <p style="margin: 0; font-weight: bold;">旋转轴心</p>
+                                        <p style="margin: 5px 0 0; color: #666; font-size: 0.9rem;">齿突为中心</p>
+                                    </div>
+                                </div>
+                                <div style="background: #e8f5e9; padding: 12px; border-radius: 6px; margin-top: 15px;">
+                                    <p style="margin: 0; color: #1b5e20;">
+                                        <i class="fas fa-info-circle"></i> <strong>功能意义：</strong>寰齿关节使头部能够左右旋转，如表示"否"。约占颈椎总旋转度的50%。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px;">
+                                <h4 style="color: #01579b; margin-bottom: 15px;"><i class="fas fa-stethoscope"></i> 临床意义</h4>
+                                <ul style="line-height: 2; color: #333;">
+                                    <li><strong>齿状突骨折：</strong>常见的上颈椎损伤，分为三型</li>
+                                    <li><strong>寰枢脱位：</strong>可导致脊髓压迫，危及生命</li>
+                                    <li><strong>类风湿关节炎：</strong>可侵犯寰齿关节，导致不稳</li>
+                                    <li><strong>先天畸形：</strong>齿状突发育不良或缺如</li>
+                                </ul>
+                                <div style="background: #ffebee; padding: 12px; border-radius: 6px; margin-top: 15px;">
+                                    <p style="margin: 0; color: #b71c1c;">
+                                        <i class="fas fa-exclamation-triangle"></i> <strong>警告：</strong>上颈椎（C1-C2）损伤可能危及生命，应避免颈部突然旋转或过度活动。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- C7 隆椎 -->
+                        <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                                <span style="background: white; padding: 10px 20px; border-radius: 50px; font-weight: bold; color: #6a1b9a;">C7</span>
+                                <h3 style="margin: 0; color: #4a148c;">第7颈椎（隆椎）</h3>
+                                <span style="background: #7b1fa2; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.85rem;">体表标志</span>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <h4 style="color: #4a148c; margin-bottom: 15px;"><i class="fas fa-map-marker-alt"></i> 结构特点</h4>
+                                <ul style="line-height: 2; color: #333;">
+                                    <li><strong>棘突最长：</strong>是颈椎中棘突最长的，长而几乎水平</li>
+                                    <li><strong>不分叉：</strong>与其他颈椎不同，棘突末端不分叉</li>
+                                    <li><strong>易触及：</strong>低头时在颈后最为突出，可清楚触摸</li>
+                                    <li><strong>过渡椎骨：</strong>连接颈椎与胸椎的过渡</li>
+                                    <li><strong>横突孔：</strong>有时较小，椎动脉不一定通过</li>
+                                </ul>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <h4 style="color: #4a148c; margin-bottom: 15px;"><i class="fas fa-ruler"></i> 临床定位价值</h4>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                    <div style="background: #f5f5f5; padding: 12px; border-radius: 6px;">
+                                        <i class="fas fa-check-circle" style="color: #7b1fa2;"></i> <strong>体表定位：</strong>颈后最明显的骨性标志
+                                    </div>
+                                    <div style="background: #f5f5f5; padding: 12px; border-radius: 6px;">
+                                        <i class="fas fa-check-circle" style="color: #7b1fa2;"></i> <strong>椎体计数：</strong>向上或向下计数其他椎骨的起点
+                                    </div>
+                                    <div style="background: #f5f5f5; padding: 12px; border-radius: 6px;">
+                                        <i class="fas fa-check-circle" style="color: #7b1fa2;"></i> <strong>针灸定位：</strong>大椎穴（第7颈椎与第1胸椎棘突之间）
+                                    </div>
+                                    <div style="background: #f5f5f5; padding: 12px; border-radius: 6px;">
+                                        <i class="fas fa-check-circle" style="color: #7b1fa2;"></i> <strong>影像参照：</strong>X线、CT等检查的定位标志
+                                    </div>
+                                </div>
+                                <div style="background: #e1f5fe; padding: 12px; border-radius: 6px; margin-top: 15px;">
+                                    <p style="margin: 0; color: #01579b;">
+                                        <i class="fas fa-hand-point-right"></i> <strong>自我检查：</strong>低头用手触摸颈后，最突出的即为C7棘突。
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px;">
+                                <h4 style="color: #4a148c; margin-bottom: 15px;"><i class="fas fa-stethoscope"></i> 临床意义</h4>
+                                <ul style="line-height: 2; color: #333;">
+                                    <li><strong>富贵包：</strong>C7区域脂肪堆积、软组织增厚，常见于长期低头者</li>
+                                    <li><strong>应力集中：</strong>颈胸椎交界处，易发生退变和疼痛</li>
+                                    <li><strong>神经根：</strong>C7神经根从C6/7椎间孔穿出，支配中指</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 30px; background: #e8f5e9; border-radius: 15px;">
+                        <i class="fas fa-graduation-cap" style="font-size: 3rem; color: #4caf50; margin-bottom: 15px;"></i>
+                        <h3 style="color: #2e7d32; margin-bottom: 10px;">恭喜您完成学习！</h3>
+                        <p style="color: #558b2f; margin-bottom: 20px;">您已经掌握了颈椎骨骼结构的基础知识，这将帮助您更好地理解康复训练的原理。</p>
+                        <button class="back-btn" style="padding: 12px 30px; background: #4caf50; color: white; border: none; border-radius: 25px; cursor: pointer; font-size: 1rem;">
+                            <i class="fas fa-arrow-left"></i> 返回继续学习
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 神经与血管详情页 -->
+            <div id="nerveVascularPage" class="app-page">
+                <div class="form-container" style="max-width: 1000px;">
+                    <button class="back-btn" style="margin-bottom: 20px; padding: 10px 20px; background: var(--primary); color: white; border: none; border-radius: 8px; cursor: pointer;">
+                        <i class="fas fa-arrow-left"></i> 返回学院
+                    </button>
+                    
+                    <div style="text-align: center; margin-bottom: 40px; padding: 30px; background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%); border-radius: 15px; color: white;">
+                        <div style="font-size: 3rem; margin-bottom: 15px;"><i class="fas fa-brain"></i></div>
+                        <h1 style="font-size: 2rem; margin-bottom: 10px;">颈椎神经与血管详解</h1>
+                        <p style="font-size: 1.1rem; opacity: 0.9;">深入了解颈椎区域的神经血管系统，理解颈椎病症状的根源</p>
+                    </div>
+                    
+                    <!-- 1. 神经分布 -->
+                    <div style="margin-bottom: 40px;">
+                        <h2 class="form-title"><i class="fas fa-project-diagram"></i> 颈椎神经分布</h2>
+                        
+                        <div style="background: #fff3e0; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #f57c00;">
+                            <h4 style="color: #e65100; margin-bottom: 10px;"><i class="fas fa-info-circle"></i> 概述</h4>
+                            <p style="line-height: 1.8; color: #333;">
+                                颈椎神经系统是连接大脑与上肢、部分躯干的<strong>重要神经通路</strong>。共有<strong>8对颈神经根</strong>（C1-C8），它们从相应的椎间孔穿出，支配颈部、肩部、上肢的感觉和运动功能。理解神经分布对于诊断和治疗颈椎病至关重要。
+                            </p>
+                            <p style="line-height: 1.8; color: #333; margin-top: 10px;">
+                                <strong>特殊之处：</strong>虽然只有7节颈椎，但有8对颈神经。C1神经根从寰椎与枕骨之间穿出，C2-C7神经根分别从相应椎骨上方穿出，C8神经根从C7与T1之间穿出。
+                            </p>
+                        </div>
+                        
+                        <!-- 颈神经根详解 -->
+                        <div style="background: linear-gradient(135deg, #e8eaf6 0%, #c5cae9 100%); padding: 25px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <h3 style="color: #283593; margin-bottom: 20px;"><i class="fas fa-list-ol"></i> 颈神经根（C1-C8）详解</h3>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <h4 style="color: #3f51b5; margin-bottom: 15px;"><i class="fas fa-sitemap"></i> 神经根分布与功能</h4>
+                                
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; border-left: 4px solid #5c6bc0;">
+                                        <h5 style="color: #3f51b5; margin-bottom: 10px;"><strong>C1-C4神经根</strong></h5>
+                                        <p style="font-size: 0.95rem; line-height: 1.8; color: #333;">
+                                            <strong>穿出位置：</strong>颅底至C4椎体<br>
+                                            <strong>主要功能：</strong>支配颈部肌肉和皮肤<br>
+                                            <strong>感觉分布：</strong>枕部、颈后部、耳部<br>
+                                            <strong>运动支配：</strong>颈深肌群、斜方肌上部
+                                        </p>
+                                    </div>
+                                    
+                                    <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; border-left: 4px solid #5c6bc0;">
+                                        <h5 style="color: #3f51b5; margin-bottom: 10px;"><strong>C5-C8神经根</strong></h5>
+                                        <p style="font-size: 0.95rem; line-height: 1.8; color: #333;">
+                                            <strong>穿出位置：</strong>C4至T1椎体<br>
+                                            <strong>主要功能：</strong>形成臂丛神经<br>
+                                            <strong>感觉分布：</strong>肩部、上肢全部区域<br>
+                                            <strong>运动支配：</strong>肩、臂、前臂、手部肌肉
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <!-- 各神经根详细支配区 -->
+                                <div style="background: #e8eaf6; padding: 20px; border-radius: 10px;">
+                                    <h5 style="color: #283593; margin-bottom: 15px;"><i class="fas fa-hand-pointer"></i> 各神经根具体支配区域</h5>
+                                    
+                                    <div style="display: grid; gap: 12px;">
+                                        <div style="background: white; padding: 12px; border-radius: 6px; border-left: 3px solid #ff5722;">
+                                            <strong style="color: #d84315;">C5神经根：</strong>
+                                            <p style="margin: 5px 0 0; line-height: 1.6;">
+                                                <strong>感觉：</strong>肩部外侧（三角肌区域）<br>
+                                                <strong>运动：</strong>三角肌、肱二头肌（肩外展、屈肘）<br>
+                                                <strong>反射：</strong>肱二头肌反射<br>
+                                                <strong>受压症状：</strong>肩部疼痛、抬臂困难
+                                            </p>
+                                        </div>
+                                        
+                                        <div style="background: white; padding: 12px; border-radius: 6px; border-left: 3px solid #ff9800;">
+                                            <strong style="color: #e65100;">C6神经根：</strong>
+                                            <p style="margin: 5px 0 0; line-height: 1.6;">
+                                                <strong>感觉：</strong>前臂外侧、拇指、食指<br>
+                                                <strong>运动：</strong>肱桡肌、旋后肌（屈肘、前臂旋后）<br>
+                                                <strong>反射：</strong>桡骨膜反射、肱桡肌反射<br>
+                                                <strong>受压症状：</strong>拇指、食指麻木，屈肘无力
+                                            </p>
+                                        </div>
+                                        
+                                        <div style="background: white; padding: 12px; border-radius: 6px; border-left: 3px solid #ffc107;">
+                                            <strong style="color: #f57c00;">C7神经根：</strong>
+                                            <p style="margin: 5px 0 0; line-height: 1.6;">
+                                                <strong>感觉：</strong>前臂后侧、中指<br>
+                                                <strong>运动：</strong>肱三头肌、伸腕肌（伸肘、伸腕）<br>
+                                                <strong>反射：</strong>肱三头肌反射<br>
+                                                <strong>受压症状：</strong>中指麻木，伸肘、伸腕无力
+                                            </p>
+                                        </div>
+                                        
+                                        <div style="background: white; padding: 12px; border-radius: 6px; border-left: 3px solid #8bc34a;">
+                                            <strong style="color: #558b2f;">C8神经根：</strong>
+                                            <p style="margin: 5px 0 0; line-height: 1.6;">
+                                                <strong>感觉：</strong>前臂内侧、环指、小指<br>
+                                                <strong>运动：</strong>手内在肌、屈指肌（手指精细活动）<br>
+                                                <strong>反射：</strong>无明显深反射<br>
+                                                <strong>受压症状：</strong>小指、环指麻木，握力下降
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px;">
+                                <h4 style="color: #3f51b5; margin-bottom: 15px;"><i class="fas fa-exclamation-circle"></i> 神经根受压的临床表现</h4>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div>
+                                        <h5 style="color: #d32f2f; margin-bottom: 10px;">感觉障碍</h5>
+                                        <ul style="line-height: 2; color: #333;">
+                                            <li>相应皮区麻木、刺痛</li>
+                                            <li>感觉减退或过敏</li>
+                                            <li>放射性疼痛（沿神经走行）</li>
+                                            <li>烧灼感、蚁行感</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h5 style="color: #d32f2f; margin-bottom: 10px;">运动障碍</h5>
+                                        <ul style="line-height: 2; color: #333;">
+                                            <li>相应肌肉力量减弱</li>
+                                            <li>肌肉萎缩（长期受压）</li>
+                                            <li>深反射减弱或消失</li>
+                                            <li>精细动作困难</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 臂丛神经 -->
+                        <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 25px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <h3 style="color: #2e7d32; margin-bottom: 20px;"><i class="fas fa-network-wired"></i> 臂丛神经（Brachial Plexus）</h3>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <h4 style="color: #388e3c; margin-bottom: 15px;"><i class="fas fa-info-circle"></i> 基本结构</h4>
+                                <p style="line-height: 1.8; color: #333; margin-bottom: 15px;">
+                                    臂丛神经由<strong>C5-C8和T1神经根</strong>组成，是支配上肢的主要神经网络。从颈部到腋窝，分为四个层次：
+                                </p>
+                                
+                                <div style="display: grid; gap: 12px;">
+                                    <div style="background: #f1f8e9; padding: 15px; border-radius: 8px; border-left: 4px solid #689f38;">
+                                        <strong style="color: #33691e;">1. 神经根（Roots）：</strong>C5、C6、C7、C8、T1
+                                    </div>
+                                    <div style="background: #f1f8e9; padding: 15px; border-radius: 8px; border-left: 4px solid #689f38;">
+                                        <strong style="color: #33691e;">2. 神经干（Trunks）：</strong>
+                                        <ul style="margin: 5px 0 0 20px; line-height: 1.8;">
+                                            <li>上干（C5+C6）</li>
+                                            <li>中干（C7）</li>
+                                            <li>下干（C8+T1）</li>
+                                        </ul>
+                                    </div>
+                                    <div style="background: #f1f8e9; padding: 15px; border-radius: 8px; border-left: 4px solid #689f38;">
+                                        <strong style="color: #33691e;">3. 神经束（Cords）：</strong>
+                                        <ul style="margin: 5px 0 0 20px; line-height: 1.8;">
+                                            <li>外侧束（来自上、中干）</li>
+                                            <li>内侧束（来自下干）</li>
+                                            <li>后束（来自三个干）</li>
+                                        </ul>
+                                    </div>
+                                    <div style="background: #f1f8e9; padding: 15px; border-radius: 8px; border-left: 4px solid #689f38;">
+                                        <strong style="color: #33691e;">4. 终支神经（Branches）：</strong>
+                                        <ul style="margin: 5px 0 0 20px; line-height: 1.8;">
+                                            <li>正中神经、尺神经、桡神经</li>
+                                            <li>肌皮神经、腋神经</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px;">
+                                <h4 style="color: #388e3c; margin-bottom: 15px;"><i class="fas fa-hand-sparkles"></i> 主要终支神经及其功能</h4>
+                                
+                                <div style="display: grid; gap: 15px;">
+                                    <div style="background: #e3f2fd; padding: 15px; border-radius: 8px;">
+                                        <h5 style="color: #1976d2;"><i class="fas fa-hand-point-up"></i> 正中神经（Median Nerve）</h5>
+                                        <p style="line-height: 1.8; margin: 10px 0 0;">
+                                            <strong>来源：</strong>C6-T1<br>
+                                            <strong>运动：</strong>前臂屈肌群（除尺侧）、手掌大部分肌肉<br>
+                                            <strong>感觉：</strong>手掌桡侧3个半手指<br>
+                                            <strong>损伤表现：</strong>"猿手"畸形、对掌功能丧失、拇指屈曲受限
+                                        </p>
+                                    </div>
+                                    
+                                    <div style="background: #fce4ec; padding: 15px; border-radius: 8px;">
+                                        <h5 style="color: #c2185b;"><i class="fas fa-hand-peace"></i> 尺神经（Ulnar Nerve）</h5>
+                                        <p style="line-height: 1.8; margin: 10px 0 0;">
+                                            <strong>来源：</strong>C8-T1<br>
+                                            <strong>运动：</strong>前臂尺侧屈肌、手内在肌大部分<br>
+                                            <strong>感觉：</strong>手掌尺侧1个半手指<br>
+                                            <strong>损伤表现：</strong>"爪形手"、骨间肌萎缩、精细动作障碍
+                                        </p>
+                                    </div>
+                                    
+                                    <div style="background: #fff3e0; padding: 15px; border-radius: 8px;">
+                                        <h5 style="color: #e65100;"><i class="fas fa-hand-rock"></i> 桡神经（Radial Nerve）</h5>
+                                        <p style="line-height: 1.8; margin: 10px 0 0;">
+                                            <strong>来源：</strong>C5-T1<br>
+                                            <strong>运动：</strong>上臂后侧肌群、前臂伸肌群<br>
+                                            <strong>感觉：</strong>手背桡侧<br>
+                                            <strong>损伤表现：</strong>"垂腕"、伸指、伸腕障碍
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 2. 血管系统 -->
+                    <div style="margin-bottom: 40px;">
+                        <h2 class="form-title"><i class="fas fa-heartbeat"></i> 颈椎血管系统</h2>
+                        
+                        <div style="background: #ffebee; padding: 20px; border-radius: 10px; margin-bottom: 20px; border-left: 4px solid #e53935;">
+                            <h4 style="color: #c62828; margin-bottom: 10px;"><i class="fas fa-info-circle"></i> 概述</h4>
+                            <p style="line-height: 1.8; color: #333;">
+                                颈部血管系统负责为<strong>大脑、颈部和上肢</strong>提供血液供应。主要包括椎动脉、颈动脉系统和相应的静脉系统。这些血管与颈椎关系密切，颈椎病变可能影响血管功能，导致脑供血不足等症状。
+                            </p>
+                        </div>
+                        
+                        <!-- 椎动脉 -->
+                        <div style="background: linear-gradient(135deg, #ede7f6 0%, #d1c4e9 100%); padding: 25px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <h3 style="color: #4a148c; margin-bottom: 20px;"><i class="fas fa-route"></i> 椎动脉（Vertebral Artery）</h3>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <h4 style="color: #6a1b9a; margin-bottom: 15px;"><i class="fas fa-map-signs"></i> 行程与分段</h4>
+                                <p style="line-height: 1.8; color: #333; margin-bottom: 15px;">
+                                    椎动脉左右各一条，起自<strong>锁骨下动脉</strong>，向上经颈椎横突孔入颅，供应脑干、小脑等重要结构。临床上分为四段：
+                                </p>
+                                
+                                <div style="display: grid; gap: 12px;">
+                                    <div style="background: #f3e5f5; padding: 15px; border-radius: 8px; border-left: 4px solid #7b1fa2;">
+                                        <strong style="color: #4a148c;">V1段（颅前段）：</strong>
+                                        <p style="margin: 8px 0 0; line-height: 1.6;">
+                                            从锁骨下动脉发出至C6横突孔入口<br>
+                                            <strong>特点：</strong>位置较深，受颈椎影响较小
+                                        </p>
+                                    </div>
+                                    
+                                    <div style="background: #f3e5f5; padding: 15px; border-radius: 8px; border-left: 4px solid #7b1fa2;">
+                                        <strong style="color: #4a148c;">V2段（横突孔段）：</strong>
+                                        <p style="margin: 8px 0 0; line-height: 1.6;">
+                                            穿行于C6-C1横突孔内<br>
+                                            <strong>特点：</strong>与颈椎关系最密切，易受骨刺、退变影响<br>
+                                            <strong>临床意义：</strong>颈椎病最常累及此段
+                                        </p>
+                                    </div>
+                                    
+                                    <div style="background: #f3e5f5; padding: 15px; border-radius: 8px; border-left: 4px solid #7b1fa2;">
+                                        <strong style="color: #4a148c;">V3段（寰枢段）：</strong>
+                                        <p style="margin: 8px 0 0; line-height: 1.6;">
+                                            从C1横突孔出口至枕骨大孔<br>
+                                            <strong>特点：</strong>走行迂曲，颈椎旋转时血管受牵拉<br>
+                                            <strong>临床意义：</strong>过度旋转可能导致血流受阻
+                                        </p>
+                                    </div>
+                                    
+                                    <div style="background: #f3e5f5; padding: 15px; border-radius: 8px; border-left: 4px solid #7b1fa2;">
+                                        <strong style="color: #4a148c;">V4段（颅内段）：</strong>
+                                        <p style="margin: 8px 0 0; line-height: 1.6;">
+                                            进入颅内至基底动脉起点<br>
+                                            <strong>特点：</strong>两侧椎动脉汇合形成基底动脉
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <h4 style="color: #6a1b9a; margin-bottom: 15px;"><i class="fas fa-brain"></i> 供血范围与重要性</h4>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div style="background: #e1f5fe; padding: 15px; border-radius: 8px;">
+                                        <h5 style="color: #01579b; margin-bottom: 10px;">供血区域</h5>
+                                        <ul style="line-height: 2; color: #333; margin: 0; padding-left: 20px;">
+                                            <li>脑干（延髓、脑桥）</li>
+                                            <li>小脑</li>
+                                            <li>枕叶部分区域</li>
+                                            <li>颞叶内侧部分</li>
+                                            <li>丘脑部分区域</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div style="background: #fff3e0; padding: 15px; border-radius: 8px;">
+                                        <h5 style="color: #e65100; margin-bottom: 10px;">血流量</h5>
+                                        <p style="line-height: 1.8; color: #333; margin: 0;">
+                                            <strong>约占脑血流的20%</strong><br>
+                                            正常：60-100ml/min<br>
+                                            两侧血流可不对称<br>
+                                            一侧阻塞可由对侧代偿
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px;">
+                                <h4 style="color: #6a1b9a; margin-bottom: 15px;"><i class="fas fa-exclamation-triangle"></i> 椎动脉型颈椎病</h4>
+                                
+                                <div style="background: #ffebee; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                                    <h5 style="color: #c62828; margin-bottom: 10px;">发病机制</h5>
+                                    <ul style="line-height: 2; color: #333; margin: 0; padding-left: 20px;">
+                                        <li><strong>机械性压迫：</strong>骨刺、钩椎关节增生直接压迫椎动脉</li>
+                                        <li><strong>刺激性痉挛：</strong>颈交感神经受刺激引起血管痉挛</li>
+                                        <li><strong>动力性因素：</strong>颈椎过度旋转、屈伸牵拉血管</li>
+                                        <li><strong>血流动力学改变：</strong>血管扭曲、狭窄导致供血不足</li>
+                                    </ul>
+                                </div>
+                                
+                                <div style="background: #e8f5e9; padding: 15px; border-radius: 8px;">
+                                    <h5 style="color: #2e7d32; margin-bottom: 10px;">典型症状（5D+3N）</h5>
+                                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                        <div>
+                                            <p style="margin: 0 0 8px; color: #1b5e20; font-weight: bold;">5D症状：</p>
+                                            <ul style="line-height: 1.8; color: #333; margin: 0; padding-left: 20px; font-size: 0.95rem;">
+                                                <li>Dizziness（眩晕）</li>
+                                                <li>Diplopia（复视）</li>
+                                                <li>Dysphagia（吞咽困难）</li>
+                                                <li>Dysphonia（发音困难）</li>
+                                                <li>Drop attack（猝倒）</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <p style="margin: 0 0 8px; color: #1b5e20; font-weight: bold;">3N症状：</p>
+                                            <ul style="line-height: 1.8; color: #333; margin: 0; padding-left: 20px; font-size: 0.95rem;">
+                                                <li>Nausea（恶心）</li>
+                                                <li>Numbness（麻木）</li>
+                                                <li>Nystagmus（眼震）</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 颈动脉 -->
+                        <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); padding: 25px; border-radius: 15px; margin-bottom: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <h3 style="color: #880e4f; margin-bottom: 20px;"><i class="fas fa-heart"></i> 颈动脉系统（Carotid Artery）</h3>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <h4 style="color: #c2185b; margin-bottom: 15px;"><i class="fas fa-project-diagram"></i> 解剖结构</h4>
+                                
+                                <div style="display: grid; gap: 12px;">
+                                    <div style="background: #fce4ec; padding: 15px; border-radius: 8px; border-left: 4px solid #e91e63;">
+                                        <strong style="color: #880e4f;">颈总动脉（Common Carotid Artery）</strong>
+                                        <p style="margin: 8px 0 0; line-height: 1.6;">
+                                            <strong>位置：</strong>颈部前外侧，沿胸锁乳突肌内侧缘上行<br>
+                                            <strong>分叉位置：</strong>甲状软骨上缘水平（C3-C4）<br>
+                                            <strong>可触及：</strong>胸锁乳突肌前缘可触及搏动<br>
+                                            <strong>临床应用：</strong>测脉搏、颈动脉窦按摩
+                                        </p>
+                                    </div>
+                                    
+                                    <div style="background: #fce4ec; padding: 15px; border-radius: 8px; border-left: 4px solid #e91e63;">
+                                        <strong style="color: #880e4f;">颈内动脉（Internal Carotid Artery）</strong>
+                                        <p style="margin: 8px 0 0; line-height: 1.6;">
+                                            <strong>供血范围：</strong>大脑大部分区域（约80%脑血流）<br>
+                                            <strong>重要分支：</strong>眼动脉、大脑前动脉、大脑中动脉<br>
+                                            <strong>临床意义：</strong>狭窄或闭塞可导致脑梗死
+                                        </p>
+                                    </div>
+                                    
+                                    <div style="background: #fce4ec; padding: 15px; border-radius: 8px; border-left: 4px solid #e91e63;">
+                                        <strong style="color: #880e4f;">颈外动脉（External Carotid Artery）</strong>
+                                        <p style="margin: 8px 0 0; line-height: 1.6;">
+                                            <strong>供血范围：</strong>颈部、面部、头皮<br>
+                                            <strong>主要分支：</strong>甲状腺上动脉、面动脉、颞浅动脉等<br>
+                                            <strong>临床意义：</strong>面部血液供应、侧支循环
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px;">
+                                <h4 style="color: #c2185b; margin-bottom: 15px;"><i class="fas fa-shield-alt"></i> Willis环（脑底动脉环）</h4>
+                                <p style="line-height: 1.8; color: #333; margin-bottom: 15px;">
+                                    颈内动脉与椎-基底动脉系统在脑底部形成<strong>Willis环</strong>，这是大脑重要的侧支循环通路：
+                                </p>
+                                <div style="background: #e1f5fe; padding: 15px; border-radius: 8px;">
+                                    <ul style="line-height: 2; color: #333; margin: 0; padding-left: 20px;">
+                                        <li><strong>前部：</strong>两侧大脑前动脉+前交通动脉</li>
+                                        <li><strong>侧部：</strong>颈内动脉+后交通动脉</li>
+                                        <li><strong>后部：</strong>基底动脉+两侧大脑后动脉</li>
+                                        <li><strong>功能：</strong>一侧血管阻塞时，通过Willis环进行代偿</li>
+                                        <li><strong>变异：</strong>约50%的人Willis环不完整</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 静脉系统 -->
+                        <div style="background: linear-gradient(135deg, #e0f2f1 0%, #b2dfdb 100%); padding: 25px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                            <h3 style="color: #00695c; margin-bottom: 20px;"><i class="fas fa-tint"></i> 静脉系统</h3>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px;">
+                                <h4 style="color: #00897b; margin-bottom: 15px;"><i class="fas fa-exchange-alt"></i> 主要静脉</h4>
+                                
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                                    <div style="background: #e0f2f1; padding: 15px; border-radius: 8px;">
+                                        <h5 style="color: #004d40; margin-bottom: 10px;">颈内静脉</h5>
+                                        <ul style="line-height: 1.8; color: #333; margin: 0; padding-left: 20px; font-size: 0.95rem;">
+                                            <li>最大的颈部静脉</li>
+                                            <li>引流颅内大部分静脉血</li>
+                                            <li>与颈总动脉伴行</li>
+                                            <li>临床常用于中心静脉置管</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div style="background: #e0f2f1; padding: 15px; border-radius: 8px;">
+                                        <h5 style="color: #004d40; margin-bottom: 10px;">椎静脉丛</h5>
+                                        <ul style="line-height: 1.8; color: #333; margin: 0; padding-left: 20px; font-size: 0.95rem;">
+                                            <li>丰富的静脉网络</li>
+                                            <li>与椎动脉伴行</li>
+                                            <li>引流颈椎周围组织</li>
+                                            <li>无静脉瓣，血流可逆行</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 20px; border-radius: 10px;">
+                                <h4 style="color: #00897b; margin-bottom: 15px;"><i class="fas fa-exclamation-circle"></i> 临床意义</h4>
+                                <div style="background: #fff3e0; padding: 15px; border-radius: 8px;">
+                                    <ul style="line-height: 2; color: #333; margin: 0; padding-left: 20px;">
+                                        <li><strong>静脉回流障碍：</strong>颈椎病可能影响静脉回流，加重症状</li>
+                                        <li><strong>感染扩散：</strong>椎静脉丛无瓣膜，感染易逆行扩散</li>
+                                        <li><strong>肿瘤转移：</strong>肿瘤细胞可通过静脉系统转移</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 3. 预防与保护 -->
+                    <div style="margin-bottom: 40px;">
+                        <h2 class="form-title"><i class="fas fa-shield-virus"></i> 神经血管保护建议</h2>
+                        
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                            <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 20px; border-radius: 12px; text-align: center;">
+                                <i class="fas fa-user-check" style="font-size: 2.5rem; color: #1976d2; margin-bottom: 15px;"></i>
+                                <h4 style="color: #0d47a1; margin-bottom: 10px;">保持正确姿势</h4>
+                                <p style="line-height: 1.6; color: #333; font-size: 0.95rem;">
+                                    避免长时间低头，每30-45分钟活动颈部，减少对神经血管的压迫
+                                </p>
+                            </div>
+                            
+                            <div style="background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); padding: 20px; border-radius: 12px; text-align: center;">
+                                <i class="fas fa-dumbbell" style="font-size: 2.5rem; color: #7b1fa2; margin-bottom: 15px;"></i>
+                                <h4 style="color: #4a148c; margin-bottom: 10px;">颈部肌肉锻炼</h4>
+                                <p style="line-height: 1.6; color: #333; font-size: 0.95rem;">
+                                    加强颈部肌肉力量，提高颈椎稳定性，保护神经血管
+                                </p>
+                            </div>
+                            
+                            <div style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); padding: 20px; border-radius: 12px; text-align: center;">
+                                <i class="fas fa-ban" style="font-size: 2.5rem; color: #388e3c; margin-bottom: 15px;"></i>
+                                <h4 style="color: #1b5e20; margin-bottom: 10px;">避免危险动作</h4>
+                                <p style="line-height: 1.6; color: #333; font-size: 0.95rem;">
+                                    不要突然大幅度旋转颈部，避免颈部外伤，防止血管和神经损伤
+                                </p>
+                            </div>
+                            
+                            <div style="background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); padding: 20px; border-radius: 12px; text-align: center;">
+                                <i class="fas fa-heartbeat" style="font-size: 2.5rem; color: #f57c00; margin-bottom: 15px;"></i>
+                                <h4 style="color: #e65100; margin-bottom: 10px;">控制基础疾病</h4>
+                                <p style="line-height: 1.6; color: #333; font-size: 0.95rem;">
+                                    控制高血压、糖尿病等，预防动脉硬化，保护血管健康
+                                </p>
+                            </div>
+                            
+                            <div style="background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%); padding: 20px; border-radius: 12px; text-align: center;">
+                                <i class="fas fa-bed" style="font-size: 2.5rem; color: #c2185b; margin-bottom: 15px;"></i>
+                                <h4 style="color: #880e4f; margin-bottom: 10px;">合适的枕头</h4>
+                                <p style="line-height: 1.6; color: #333; font-size: 0.95rem;">
+                                    选择高度适中的枕头，维持颈椎生理曲度，减少神经血管受压
+                                </p>
+                            </div>
+                            
+                            <div style="background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%); padding: 20px; border-radius: 12px; text-align: center;">
+                                <i class="fas fa-hospital" style="font-size: 2.5rem; color: #d32f2f; margin-bottom: 15px;"></i>
+                                <h4 style="color: #b71c1c; margin-bottom: 10px;">及时就医</h4>
+                                <p style="line-height: 1.6; color: #333; font-size: 0.95rem;">
+                                    出现持续麻木、眩晕等症状时，及时就医检查，早期治疗效果更好
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; padding: 30px; background: #e8f5e9; border-radius: 15px;">
+                        <i class="fas fa-graduation-cap" style="font-size: 3rem; color: #4caf50; margin-bottom: 15px;"></i>
+                        <h3 style="color: #2e7d32; margin-bottom: 10px;">恭喜您完成学习！</h3>
+                        <p style="color: #558b2f; margin-bottom: 20px;">您已经掌握了颈椎神经与血管系统的专业知识，这将帮助您更好地理解颈椎病的症状和预防措施。</p>
+                        <button class="back-btn" style="padding: 12px 30px; background: #4caf50; color: white; border: none; border-radius: 25px; cursor: pointer; font-size: 1rem;">
+                            <i class="fas fa-arrow-left"></i> 返回继续学习
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 坐姿检测页面 -->
+            <div id="posturePage" class="app-page">
+                <div class="game-page" id="gamePage">
+                    <div class="game-header">
+                        <h2 class="game-title">雀翎愈脊 - 坐姿助手</h2>
+                        <p class="game-subtitle">保持正确坐姿，帮助小动物穿越丛林回家！</p>
+                    </div>
+                    
+                    <div class="game-layout">
+                        <!-- 摄像头容器 -->
+                        <div class="camera-container">
+                            <div class="camera-header">
+                                <h3 class="camera-title">坐姿检测</h3>
+                                <div class="camera-controls">
+                                    <button class="control-btn" id="cameraBtn">
+                                        <i class="fas fa-camera"></i> 开启摄像头
+                                    </button>
+                                    <button class="control-btn" id="flipBtn">
+                                        <i class="fas fa-sync-alt"></i> 翻转
+                                    </button>
+                                </div>
+                            </div>
+                            <video id="camera-feed" autoplay playsinline></video>
+                            <div class="posture-status" id="postureStatus">
+                                准备就绪，请开启摄像头
+                            </div>
+                        </div>
+                        
+                        <!-- 地图容器 -->
+                        <div class="map-container">
+                            <h3 class="map-title">丛林探险地图</h3>
+                            <div class="map-content">
+                                <div class="jungle-bg"></div>
+                                <div class="path"></div>
+                                <div class="path-stripe"></div>
+                                <div class="map-grid">
+                                    <div class="grid-cell">1</div>
+                                    <div class="grid-cell">2</div>
+                                    <div class="grid-cell">3</div>
+                                    <div class="grid-cell">4</div>
+                                    <div class="grid-cell">5</div>
+                                    <div class="grid-cell">6</div>
+                                    <div class="grid-cell">7</div>
+                                    <div class="grid-cell">8</div>
+                                    <div class="grid-cell">9</div>
+                                    <div class="grid-cell">10</div>
+                                    <div class="grid-cell">11</div>
+                                    <div class="grid-cell">12</div>
+                                    <div class="grid-cell">13</div>
+                                    <div class="grid-cell">14</div>
+                                    <div class="grid-cell">15</div>
+                                    <div class="grid-cell">16</div>
+                                    <div class="grid-cell">17</div>
+                                    <div class="grid-cell">18</div>
+                                    <div class="grid-cell">19</div>
+                                    <div class="grid-cell">🏠</div>
+                                </div>
+                                <div class="player" id="player">
+                                    <div class="player-head"></div>
+                                    <div class="player-body"></div>
+                                    <div class="player-legs">
+                                        <div class="leg"></div>
+                                        <div class="leg"></div>
+                                    </div>
+                                </div>
+                                <div class="items">
+                                    <div class="item mushroom">🍄</div>
+                                    <div class="item apple">🍎</div>
+                                    <div class="item banana">🍌</div>
+                                    <div class="item strawberry">🍓</div>
+                                </div>
+                                <div class="house">
+                                    <div class="house-roof"></div>
+                                    <div class="house-body"></div>
+                                    <div class="house-door"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 统计和奖牌区域 -->
+                    <div class="stats-container">
+                        <div class="stats">
+                            <h3 class="stats-title">游戏数据</h3>
+                            <div class="stats-content">
+                                <div class="stat-box">
+                                    <div>当前位置</div>
+                                    <div class="stat-value" id="position">0</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div>收集物品</div>
+                                    <div class="stat-value" id="items">0</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div>总积分</div>
+                                    <div class="stat-value" id="score">0</div>
+                                </div>
+                                <div class="stat-box">
+                                    <div>良好坐姿</div>
+                                    <div class="stat-value" id="goodTime">0s</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="medals-container">
+                            <h3 class="stats-title">奖牌收集</h3>
+                            <p>保持良好坐姿5秒获得奖牌</p>
+                            <div class="medals-grid">
+                                <div class="medal" id="medal1">🥇</div>
+                                <div class="medal" id="medal2">🥈</div>
+                                <div class="medal" id="medal3">🥉</div>
+                                <div class="medal" id="medal4">🏅</div>
+                                <div class="medal" id="medal5">🎖️</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 控制按钮 -->
+                    <div class="controls">
+                        <button class="control-btn" id="resetBtn">
+                            <i class="fas fa-redo"></i> 重新开始
+                        </button>
+                        <button class="control-btn" id="pauseBtn">
+                            <i class="fas fa-pause"></i> 暂停游戏
+                        </button>
+                        <button class="control-btn" id="homeBtn">
+                            <i class="fas fa-home"></i> 返回首页
+                        </button>
+                    </div>
+                </div>
+                <div class="medal-message" id="medalMessage">
+                    <i class="fas fa-medal"></i> 恭喜获得奖牌！
+                </div>
+            </div>
+            
+            <!-- 专家问诊页面 -->
+            <div id="expertPage" class="app-page">
+                <div class="form-container">
+                    <h2 class="form-title"><i class="fas fa-stethoscope"></i> 颈椎专家咨询</h2>
+                    <p style="text-align: center; margin-bottom: 15px; color: #555;">
+                        请选择一位专家进行在线咨询
+                    </p>
+                    
+                    <div id="expertsContainer">
+                        <div style="text-align: center; padding: 40px; color: #999;">
+                            <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 15px;"></i>
+                            <p>正在加载在线专家...</p>
+                        </div>
+                    </div>
+                    
+                    <button class="start-btn-consult" id="startConsultBtn" disabled>开始咨询</button>
+                </div>
+                
+                <!-- 聊天界面 -->
+                <div class="chat-container" id="chatContainer">
+                    <div class="chat-header">
+                        <div class="chat-expert-avatar" id="chatExpertAvatar">张</div>
+                        <div>
+                            <h3 id="chatExpertName">张医生</h3>
+                            <div class="expert-status" id="chatExpertStatus">在线中</div>
+                        </div>
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message expert">
+                            <p>您好！我是张医生，有什么可以帮您的？</p>
+                        </div>
+                    </div>
+                    <div class="chat-input">
+                        <textarea id="chatInput" placeholder="输入您的问题..."></textarea>
+                        <button id="sendMessageBtn">发送</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 案例库页面 -->
+            <div id="casesPage" class="app-page">
+                <div class="form-container">
+                    <h2 class="form-title"><i class="fas fa-folder-open"></i> 颈椎康复成功案例</h2>
+                    <p style="text-align: center; margin-bottom: 15px; color: #555;">
+                        以下是我们帮助过的部分成功案例
+                    </p>
+                    
+                    <!-- 静态案例展示 -->
+                    <div class="case-card">
+                        <div class="case-header">
+                            <i class="fas fa-user case-icon"></i>
+                            <h3 class="case-title">张先生 - 神经根型颈椎病康复案例</h3>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-img">
+                                <i class="fas fa-user-md"></i>
+                            </div>
+                            <div class="case-details">
+                                <p><strong>年龄：</strong>42岁</p>
+                                <p><strong>职业：</strong>IT工程师</p>
+                                <p><strong>症状：</strong>颈部疼痛伴左上肢麻木，夜间加重</p>
+                                <p><strong>诊断：</strong>C5-C6神经根型颈椎病</p>
+                                <p><strong>康复方案：</strong></p>
+                                <ul>
+                                    <li>颈椎牵引治疗</li>
+                                    <li>物理因子治疗（超短波、中频电刺激）</li>
+                                    <li>颈椎稳定性训练</li>
+                                    <li>姿势矫正教育</li>
+                                </ul>
+                                <p><strong>康复效果：</strong>治疗6周后疼痛减轻80%，麻木感基本消失，恢复日常工作能力</p>
+                                <div class="case-tag">神经根型</div>
+                                <div class="case-tag">IT工作者</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="case-card">
+                        <div class="case-header">
+                            <i class="fas fa-user case-icon"></i>
+                            <h3 class="case-title">李女士 - 颈型颈椎病康复案例</h3>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-img">
+                                <i class="fas fa-user-injured"></i>
+                            </div>
+                            <div class="case-details">
+                                <p><strong>年龄：</strong>35岁</p>
+                                <p><strong>职业：</strong>会计</p>
+                                <p><strong>症状：</strong>颈部僵硬酸痛，晨起加重，活动受限</p>
+                                <p><strong>诊断：</strong>颈型颈椎病</p>
+                                <p><strong>康复方案：</strong></p>
+                                <ul>
+                                    <li>软组织松解技术</li>
+                                    <li>关节松动术</li>
+                                    <li>颈椎活动度训练</li>
+                                    <li>工作姿势调整指导</li>
+                                </ul>
+                                <p><strong>康复效果：</strong>治疗4周后活动度恢复正常，疼痛减轻90%，工作能力恢复</p>
+                                <div class="case-tag">颈型</div>
+                                <div class="case-tag">办公室职员</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="case-card">
+                        <div class="case-header">
+                            <i class="fas fa-user case-icon"></i>
+                            <h3 class="case-title">王先生 - 脊髓型颈椎病术后康复案例</h3>
+                        </div>
+                        <div class="case-content">
+                            <div class="case-img">
+                                <i class="fas fa-wheelchair"></i>
+                            </div>
+                            <div class="case-details">
+                                <p><strong>年龄：</strong>58岁</p>
+                                <p><strong>职业：</strong>退休</p>
+                                <p><strong>症状：</strong>双下肢无力，步态不稳，手部精细动作障碍</p>
+                                <p><strong>诊断：</strong>C4-C5脊髓型颈椎病术后</p>
+                                <p><strong>康复方案：</strong></p>
+                                <ul>
+                                    <li>术后早期康复训练</li>
+                                    <li>神经功能恢复训练</li>
+                                    <li>平衡与步态训练</li>
+                                    <li>日常生活能力训练</li>
+                                </ul>
+                                <p><strong>康复效果：</strong>术后3个月独立步行能力恢复，手功能改善，生活自理能力恢复</p>
+                                <div class="case-tag">脊髓型</div>
+                                <div class="case-tag">术后康复</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 动态案例容器（专家保存的案例将添加在这里）-->
+                    <div class="cases-grid">
+                        <!-- 动态案例由 treatment.js 渲染 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 底部导航 -->
+        <div class="bottom-nav">
+            <div class="nav-item" data-page="cover">
+                <i class="fas fa-home"></i>
+                <span class="nav-text">首页</span>
+            </div>
+            <div class="nav-item" data-page="nav">
+                <i class="fas fa-compass"></i>
+                <span class="nav-text">导航</span>
+            </div>
+            <div class="nav-item" data-page="assessment">
+                <i class="fas fa-clipboard-check"></i>
+                <span class="nav-text">评定</span>
+            </div>
+            <div class="nav-item" data-page="treatment">
+                <i class="fas fa-heartbeat"></i>
+                <span class="nav-text">治疗</span>
+            </div>
+            <div class="nav-item" data-page="education">
+                <i class="fas fa-book-medical"></i>
+                <span class="nav-text">学院</span>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 视频指导模态框（全局） -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <div class="video-modal-header">
+                <h3 class="video-modal-title">操作指导视频</h3>
+                <button class="video-modal-close" id="closeVideoModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="video-modal-body">
+                <iframe 
+                    id="videoIframe" 
+                    src="" 
+                    scrolling="no" 
+                    border="0" 
+                    frameborder="no" 
+                    framespacing="0" 
+                    allowfullscreen="true"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                    webkitallowfullscreen="true"
+                    mozallowfullscreen="true"
+                    sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Socket.IO Client Library -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    
+    <!-- JavaScript Files -->
+    <script type="module" src="js/main.js?v=20251216"></script>
+</body>
+</html>

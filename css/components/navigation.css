@@ -1,0 +1,208 @@
+/* Navigation styles */
+
+/* 封面页样式 */
+.cover-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    height: 100%;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cover-background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M12 3L4 9v12h16V9l-8-6zm-2.25 9.5c.69 0 1.25.56 1.25 1.25S10.44 15 9.75 15s-1.25-.56-1.25-1.25.56-1.25 1.25-1.25zM17 18h-1v-5.08c0-.298-.159-.574-.416-.725l-1.5-.87c-.257-.15-.575-.15-.832 0l-1.5.87c-.257.15-.416.427-.416.725V18H7v-7.27l5-3.223 5 3.223V18z"/></svg>');
+    background-size: 300px;
+}
+
+.cover-content {
+    max-width: 500px;
+    margin: 0 auto;
+    z-index: 10;
+    animation: scaleIn 1s ease-out;
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.cover-logo {
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px auto;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    animation: pulse 2s infinite;
+}
+
+.cover-logo i {
+    width: 80px;
+    height: 80px;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,0.2));
+}
+
+.cover-title {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cover-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.start-btn {
+    background: white;
+    color: var(--primary);
+    border: none;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: var(--box-shadow);
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.start-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(30, 136, 229, 0.4);
+}
+
+.start-btn:after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -60%;
+    width: 20px;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(25deg);
+    transition: all 0.6s;
+}
+
+.start-btn:hover:after {
+    left: 120%;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* 导航页样式 */
+.nav-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.nav-card {
+    background: white;
+    border-radius: 15px;
+    padding: 15px 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: var(--box-shadow);
+    border: 2px solid #e3f2fd;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.nav-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.nav-card:hover:before {
+    transform: scaleX(1);
+}
+
+.nav-icon {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+    transition: all 0.3s ease;
+}
+
+.nav-card:hover .nav-icon {
+    transform: scale(1.1);
+    color: var(--primary-dark);
+}
+
+.nav-title {
+    font-size: 1.1rem;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--primary-dark);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .nav-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .cover-title {
+        font-size: 1.8rem;
+    }
+    
+    .cover-subtitle {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cover-logo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .cover-logo i {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .nav-grid {
+        grid-template-columns: 1fr;
+    }
+}

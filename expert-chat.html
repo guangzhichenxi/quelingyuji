@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专家工作台 - 颈椎康复助手</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 20px 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .expert-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .expert-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .expert-details h2 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .expert-details p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-content {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 20px;
+            height: calc(100vh - 140px);
+        }
+
+        .sidebar {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+        }
+
+        .sidebar h3 {
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .consultation-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .consultation-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+
+        .consultation-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+
+        .consultation-item.active {
+            background: #e3f2fd;
+            border-color: #667eea;
+        }
+
+        .patient-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .patient-time {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        .chat-area {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-patient-info h3 {
+            margin-bottom: 5px;
+        }
+
+        .chat-patient-info p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background: #f8f9fa;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.patient {
+            justify-content: flex-start;
+        }
+
+        .message.expert {
+            justify-content: flex-end;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 15px;
+            word-wrap: break-word;
+        }
+
+        .message.patient .message-content {
+            background: white;
+            color: #333;
+            border-bottom-left-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .message.expert .message-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-bottom-right-radius: 5px;
+        }
+
+        .message-time {
+            font-size: 0.75rem;
+            margin-top: 5px;
+            opacity: 0.7;
+        }
+
+        .chat-input-area {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .quick-replies {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .quick-reply-btn {
+            padding: 8px 15px;
+            background: #e3f2fd;
+            color: #667eea;
+            border: 1px solid #667eea;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+        }
+
+        .quick-reply-btn:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-container textarea {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            resize: none;
+            font-family: inherit;
+            transition: all 0.3s;
+        }
+
+        .input-container textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .send-btn {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .send-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #999;
+            text-align: center;
+        }
+
+        .empty-state i {
+            font-size: 5rem;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+
+        .empty-state h3 {
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            background: #28a745;
+            color: white;
+        }
+
+        .status-badge i {
+            font-size: 0.6rem;
+        }
+
+        @media (max-width: 1024px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: none;
+            }
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #764ba2;
+        }
+
+        /* 保存案例模态框样式 */
+        .save-case-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+        }
+
+        .save-case-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 25px 30px;
+            border-bottom: 2px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group label .required {
+            color: #f44336;
+            margin-left: 3px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .modal-footer {
+            padding: 20px 30px;
+            border-top: 2px solid #f0f0f0;
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4caf50 0%, #45a049 100%);
+            color: white;
+        }
+
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #666;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <div class="header">
+            <div class="expert-info">
+                <div class="expert-avatar" id="headerAvatar">专</div>
+                <div class="expert-details">
+                    <h2 id="headerName">专家姓名</h2>
+                    <p id="headerTitle">职称 | 专业领域</p>
+                </div>
+                <div class="status-badge">
+                    <i class="fas fa-circle"></i>
+                    <span>在线中</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-primary" onclick="window.location.reload()">
+                    <i class="fas fa-sync-alt"></i> 刷新
+                </button>
+                <button class="btn btn-danger" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> 退出登录
+                </button>
+            </div>
+        </div>
+
+        <!-- 主内容 -->
+        <div class="main-content">
+            <!-- 侧边栏 - 咨询列表 -->
+            <div class="sidebar">
+                <h3>
+                    <i class="fas fa-users"></i> 咨询列表
+                    <span style="font-size: 0.85rem; color: #999; margin-left: 10px;" id="consultationCount">(0)</span>
+                </h3>
+                <div class="consultation-list" id="consultationList">
+                    <div class="empty-state" style="padding: 40px 0;">
+                        <i class="fas fa-inbox"></i>
+                        <p>暂无咨询请求</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 聊天区域 -->
+            <div class="chat-area">
+                <div id="emptyChat" class="empty-state">
+                    <i class="fas fa-comments"></i>
+                    <h3>等待病人咨询</h3>
+                    <p>病人发起咨询后将在此显示聊天内容</p>
+                </div>
+
+                <div id="chatInterface" style="display: none; height: 100%; display: flex; flex-direction: column;">
+                    <!-- 聊天头部 -->
+                    <div class="chat-header">
+                        <div class="chat-patient-info">
+                            <h3 id="currentPatientName">病人姓名</h3>
+                            <p id="currentPatientTime">咨询开始时间</p>
+                        </div>
+                        <div style="display: flex; gap: 10px;">
+                            <button class="btn btn-success" onclick="openSaveCaseModal()" title="将当前咨询保存为康复案例">
+                                <i class="fas fa-save"></i> 保存为案例
+                            </button>
+                            <button class="btn btn-danger" onclick="endCurrentConsultation()">
+                                <i class="fas fa-stop-circle"></i> 结束咨询
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 聊天消息 -->
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- 消息将动态添加 -->
+                    </div>
+
+                    <!-- 输入区域 -->
+                    <div class="chat-input-area">
+                        <!-- 快捷回复 -->
+                        <div class="quick-replies">
+                            <button class="quick-reply-btn" onclick="sendQuestionnaire()" style="background: #4caf50; color: white; border-color: #4caf50;">
+                                <i class="fas fa-file-medical"></i> 发送问卷
+                            </button>
+                            <button class="quick-reply-btn" onclick="insertQuickReply('建议每小时活动一次颈椎，避免长时间低头')">
+                                <i class="fas fa-clock"></i> 活动建议
+                            </button>
+                            <button class="quick-reply-btn" onclick="insertQuickReply('可以使用热敷缓解颈部肌肉紧张，每次15-20分钟')">
+                                <i class="fas fa-fire"></i> 热敷建议
+                            </button>
+                            <button class="quick-reply-btn" onclick="insertQuickReply('尝试颈部米字操，用头缓慢写米字，每次3-5遍')">
+                                <i class="fas fa-dumbbell"></i> 运动指导
+                            </button>
+                            <button class="quick-reply-btn" onclick="insertQuickReply('如果症状持续加重，建议来院做详细检查')">
+                                <i class="fas fa-hospital"></i> 就医建议
+                            </button>
+                        </div>
+
+                        <!-- 输入框 -->
+                        <div class="input-container">
+                            <textarea 
+                                id="messageInput" 
+                                placeholder="输入您的回复..."
+                                rows="3"
+                                onkeypress="handleKeyPress(event)"></textarea>
+                            <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                                <i class="fas fa-paper-plane"></i> 发送
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 保存案例模态框 -->
+    <div class="save-case-modal" id="saveCaseModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-folder-plus"></i> 保存为康复案例</h3>
+                <button class="modal-close" onclick="closeSaveCaseModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>姓名<span class="required">*</span></label>
+                        <input type="text" id="caseName" placeholder="例：李女士">
+                    </div>
+                    <div class="form-group">
+                        <label>年龄<span class="required">*</span></label>
+                        <input type="text" id="caseAge" placeholder="例：35岁">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>职业<span class="required">*</span></label>
+                        <input type="text" id="caseOccupation" placeholder="例：会计">
+                    </div>
+                    <div class="form-group">
+                        <label>病症类型<span class="required">*</span></label>
+                        <select id="caseType">
+                            <option value="">请选择</option>
+                            <option value="颈型">颈型颈椎病</option>
+                            <option value="神经根型">神经根型颈椎病</option>
+                            <option value="椎动脉型">椎动脉型颈椎病</option>
+                            <option value="混合型">混合型颈椎病</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>主要症状<span class="required">*</span></label>
+                    <textarea id="caseSymptoms" placeholder="例：颈部僵硬酸痛，晨起加重，活动受限"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>诊断结果<span class="required">*</span></label>
+                    <input type="text" id="caseDiagnosis" placeholder="例：颈型颈椎病">
+                </div>
+
+                <div class="form-group">
+                    <label>康复方案<span class="required">*</span></label>
+                    <textarea id="caseTreatment" placeholder="每行一个方案，例如：&#10;软组织松解技术&#10;关节松动术&#10;颈椎活动度训练&#10;工作姿势调整指导" rows="5"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>康复效果<span class="required">*</span></label>
+                    <textarea id="caseResult" placeholder="例：治疗4周后活动度恢复正常，疼痛减轻90%，工作能力恢夏"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>职业标签</label>
+                    <input type="text" id="caseTag" placeholder="例：办公室职员、教师、程序员">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeSaveCaseModal()">
+                    <i class="fas fa-times"></i> 取消
+                </button>
+                <button class="btn btn-success" onclick="confirmSaveCase()">
+                    <i class="fas fa-check"></i> 确认保存
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入Socket.IO -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+
+    <script>
+        // 全局变量
+        let socket = null;
+        let currentExpert = null;
+        let consultations = new Map(); // 存储所有咨询会话
+        let currentConsultationId = null;
+
+        // 页面加载
+        window.onload = function() {
+            console.log('专家工作台加载完成');
+
+            // 检查是否已登录
+            const expertData = sessionStorage.getItem('currentExpert');
+            if (!expertData) {
+                alert('未登录，请先登录');
+                window.location.href = 'expert-login.html';
+                return;
+            }
+
+            try {
+                currentExpert = JSON.parse(expertData);
+                console.log('当前专家信息:', currentExpert);
+
+                // 显示专家信息
+                displayExpertInfo();
+
+                // 连接到服务器
+                connectToServer();
+            } catch (e) {
+                console.error('解析专家信息失败:', e);
+                alert('登录信息错误，请重新登录');
+                window.location.href = 'expert-login.html';
+            }
+        };
+
+        // 显示专家信息
+        function displayExpertInfo() {
+            document.getElementById('headerAvatar').textContent = currentExpert.avatarChar;
+            document.getElementById('headerName').textContent = currentExpert.name;
+            document.getElementById('headerTitle').textContent = `${currentExpert.title} | ${currentExpert.specialty}`;
+        }
+
+        // 连接到服务器
+        function connectToServer() {
+            console.log('正在连接到服务器...');
+
+            try {
+                // 部署到云服务器后，将 localhost 改为服务器IP或域名
+                const serverUrl = window.location.hostname === 'localhost' 
+                    ? 'http://localhost:3001' 
+                    : `http://${window.location.hostname}:3001`;
+                
+                socket = io(serverUrl, {
+                    transports: ['websocket', 'polling'],
+                    reconnection: true,
+                    reconnectionAttempts: 5,
+                    timeout: 10000
+                });
+                
+                console.log('正在连接到服务器:', serverUrl);
+
+                socket.on('connect', () => {
+                    console.log('已连接到服务器');
+                    
+                    // 专家上线
+                    socket.emit('expert-online', currentExpert);
+                });
+
+                socket.on('expert-online-success', (data) => {
+                    console.log('专家上线成功:', data);
+                });
+
+                // 接收新的咨询请求
+                socket.on('new-consultation-request', (data) => {
+                    console.log('收到新的咨询请求:', data);
+                    handleNewConsultation(data);
+                });
+
+                // 接收咨询消息
+                socket.on('consultation-message', (data) => {
+                    console.log('收到咨询消息:', data);
+                    handleIncomingMessage(data);
+                });
+
+                // 咨询已结束
+                socket.on('consultation-ended', (data) => {
+                    console.log('咨询已结束:', data);
+                    handleConsultationEnded(data);
+                });
+                
+                // 案例保存成功响应
+                socket.on('case-saved', (data) => {
+                    console.log('案例保存成功:', data);
+                });
+                
+                // 接收问卷结果
+                socket.on('questionnaire-result', (data) => {
+                    console.log('收到问卷结果:', data);
+                    
+                    // 显示问卷结果
+                    const resultsMessage = formatQuestionnaireResults(data.results);
+                    addMessageToChat('patient', resultsMessage);
+                    
+                    // 保存到当前咨询
+                    if (currentConsultationId) {
+                        const consultation = consultations.get(currentConsultationId);
+                        if (consultation) {
+                            consultation.messages.push({
+                                senderType: 'patient',
+                                message: resultsMessage,
+                                timestamp: new Date().toISOString(),
+                                type: 'questionnaire'
+                            });
+                        }
+                    }
+                });
+
+                socket.on('connect_error', (error) => {
+                    console.error('连接失败:', error);
+                    alert('无法连接到服务器，请检查服务器是否已启动');
+                });
+
+            } catch (error) {
+                console.error('连接错误:', error);
+                alert('连接出错：' + error.message);
+            }
+        }
+
+        // 处理新咨询
+        function handleNewConsultation(data) {
+            const consultation = {
+                consultationId: data.consultationId,
+                roomId: data.roomId,
+                patientInfo: data.patientInfo,
+                startTime: data.timestamp,
+                messages: []
+            };
+
+            consultations.set(data.consultationId, consultation);
+
+            // 添加到咨询列表
+            addToConsultationList(consultation);
+
+            // 如果是第一个咨询，自动打开
+            if (consultations.size === 1) {
+                openConsultation(data.consultationId);
+            }
+
+            // 更新计数
+            updateConsultationCount();
+        }
+
+        // 添加到咨询列表
+        function addToConsultationList(consultation) {
+            const listDiv = document.getElementById('consultationList');
+            
+            // 清除空状态
+            if (consultations.size === 1) {
+                listDiv.innerHTML = '';
+            }
+
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'consultation-item';
+            itemDiv.id = 'consult_' + consultation.consultationId;
+            itemDiv.onclick = () => openConsultation(consultation.consultationId);
+
+            const patientName = consultation.patientInfo.name || '病人' + consultation.consultationId.substr(-4);
+            const startTime = new Date(consultation.startTime).toLocaleTimeString();
+
+            itemDiv.innerHTML = `
+                <div class="patient-name">
+                    <i class="fas fa-user"></i> ${patientName}
+                </div>
+                <div class="patient-time">${startTime} 开始咨询</div>
+            `;
+
+            listDiv.appendChild(itemDiv);
+        }
+
+        // 打开咨询
+        function openConsultation(consultationId) {
+            console.log('打开咨询:', consultationId);
+
+            currentConsultationId = consultationId;
+            const consultation = consultations.get(consultationId);
+
+            if (!consultation) {
+                console.error('咨询不存在:', consultationId);
+                return;
+            }
+
+            // 更新选中状态
+            document.querySelectorAll('.consultation-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.getElementById('consult_' + consultationId).classList.add('active');
+
+            // 隐藏空状态，显示聊天界面
+            document.getElementById('emptyChat').style.display = 'none';
+            document.getElementById('chatInterface').style.display = 'flex';
+
+            // 更新病人信息
+            const patientName = consultation.patientInfo.name || '病人' + consultationId.substr(-4);
+            document.getElementById('currentPatientName').textContent = patientName;
+            document.getElementById('currentPatientTime').textContent = '咨询开始于 ' + new Date(consultation.startTime).toLocaleString();
+
+            // 显示历史消息
+            displayMessages(consultation.messages);
+        }
+
+        // 显示消息
+        function displayMessages(messages) {
+            const chatMessages = document.getElementById('chatMessages');
+            chatMessages.innerHTML = '';
+
+            messages.forEach(msg => {
+                addMessageToChat(msg.senderType, msg.message, false);
+            });
+
+            // 滚动到底部
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // 处理接收到的消息
+        function handleIncomingMessage(data) {
+            if (!currentConsultationId) return;
+
+            const consultation = consultations.get(currentConsultationId);
+            if (!consultation) return;
+
+            // 保存消息
+            consultation.messages.push({
+                senderType: data.senderType,
+                message: data.message,
+                timestamp: data.timestamp
+            });
+
+            // 显示消息
+            if (data.senderType === 'patient') {
+                addMessageToChat('patient', data.message);
+            }
+        }
+
+        // 添加消息到聊天窗口
+        function addMessageToChat(senderType, message, scroll = true) {
+            const chatMessages = document.getElementById('chatMessages');
+
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${senderType}`;
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            contentDiv.innerHTML = `
+                <div>${message}</div>
+                <div class="message-time">${new Date().toLocaleTimeString()}</div>
+            `;
+
+            messageDiv.appendChild(contentDiv);
+            chatMessages.appendChild(messageDiv);
+
+            if (scroll) {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }
+
+        // 发送消息
+        function sendMessage() {
+            if (!currentConsultationId) {
+                alert('请先选择一个咨询');
+                return;
+            }
+
+            const input = document.getElementById('messageInput');
+            const message = input.value.trim();
+
+            if (!message) {
+                alert('请输入消息内容');
+                return;
+            }
+
+            const consultation = consultations.get(currentConsultationId);
+            if (!consultation) return;
+
+            // 添加到界面
+            addMessageToChat('expert', message);
+
+            // 保存消息
+            consultation.messages.push({
+                senderType: 'expert',
+                message: message,
+                timestamp: new Date().toISOString()
+            });
+
+            // 通过socket发送
+            if (socket && socket.connected) {
+                socket.emit('consultation-message', {
+                    roomId: consultation.roomId,
+                    message: message,
+                    senderType: 'expert'
+                });
+            }
+
+            // 清空输入框
+            input.value = '';
+        }
+
+        // 发送问卷
+        function sendQuestionnaire() {
+            if (!currentConsultationId) {
+                alert('请先选择一个咨询');
+                return;
+            }
+
+            const consultation = consultations.get(currentConsultationId);
+            if (!consultation) return;
+
+            // 发送消息给病人
+            const message = '请配合做好这份问卷，让我能更好的了解你的病情。';
+            
+            // 显示在聊天界面
+            addMessageToChat('expert', message);
+
+            // 保存消息
+            consultation.messages.push({
+                senderType: 'expert',
+                message: message,
+                timestamp: new Date().toISOString()
+            });
+
+            // 通过socket发送问卷请求
+            if (socket && socket.connected) {
+                socket.emit('send-questionnaire', {
+                    roomId: consultation.roomId,
+                    consultationId: consultation.consultationId,
+                    message: message
+                });
+                console.log('已发送问卷请求');
+            } else {
+                console.error('Socket未连接，问卷发送失败');
+                alert('连接已断开，无法发送问卷');
+            }
+        }
+
+        // 格式化问卷结果
+        function formatQuestionnaireResults(results) {
+            let html = '<div style="background: #f0f8ff; padding: 15px; border-radius: 10px; border-left: 4px solid #1e88e5;">';
+            html += '<h4 style="margin: 0 0 10px 0; color: #1e88e5;"><i class="fas fa-file-medical"></i> 颈椎健康问卷结果</h4>';
+            
+            for (const [key, value] of Object.entries(results)) {
+                html += `<p style="margin: 5px 0;"><strong>${key}:</strong> ${value}</p>`;
+            }
+            
+            html += '</div>';
+            return html;
+        }
+
+        // 插入快捷回复
+        function insertQuickReply(text) {
+            const input = document.getElementById('messageInput');
+            input.value = text;
+            input.focus();
+        }
+
+        // 处理键盘事件
+        function handleKeyPress(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        }
+
+        // 结束当前咨询
+        function endCurrentConsultation() {
+            if (!currentConsultationId) return;
+
+            if (!confirm('确定要结束这次咨询吗？')) return;
+
+            const consultation = consultations.get(currentConsultationId);
+            if (!consultation) return;
+
+            // 发送结束咨询事件
+            if (socket && socket.connected) {
+                socket.emit('end-consultation', consultation.consultationId);
+            }
+
+            handleConsultationEnded({ consultationId: consultation.consultationId });
+        }
+
+        // 处理咨询结束
+        function handleConsultationEnded(data) {
+            const consultationId = data.consultationId;
+
+            // 从列表中移除
+            const itemDiv = document.getElementById('consult_' + consultationId);
+            if (itemDiv) {
+                itemDiv.remove();
+            }
+
+            // 从Map中删除
+            consultations.delete(consultationId);
+
+            // 如果是当前咨询，关闭聊天界面
+            if (currentConsultationId === consultationId) {
+                currentConsultationId = null;
+                document.getElementById('chatInterface').style.display = 'none';
+                document.getElementById('emptyChat').style.display = 'flex';
+            }
+
+            // 更新计数
+            updateConsultationCount();
+
+            // 如果没有咨询了，显示空状态
+            if (consultations.size === 0) {
+                document.getElementById('consultationList').innerHTML = `
+                    <div class="empty-state" style="padding: 40px 0;">
+                        <i class="fas fa-inbox"></i>
+                        <p>暂无咨询请求</p>
+                    </div>
+                `;
+            }
+        }
+
+        // 更新咨询数量
+        function updateConsultationCount() {
+            document.getElementById('consultationCount').textContent = `(${consultations.size})`;
+        }
+
+        // 退出登录
+        function logout() {
+            if (!confirm('确定要退出登录吗？')) return;
+
+            // 发送专家下线事件
+            if (socket && socket.connected && currentExpert) {
+                socket.emit('expert-offline', currentExpert.id);
+            }
+
+            // 清除登录信息
+            sessionStorage.removeItem('currentExpert');
+
+            // 跳转到登录页
+            window.location.href = 'expert-login.html';
+        }
+
+        // 页面关闭前
+        window.onbeforeunload = function() {
+            if (socket && socket.connected && currentExpert) {
+                socket.emit('expert-offline', currentExpert.id);
+            }
+        };
+
+        // ========== 保存案例功能 ==========
+        
+        /**
+         * 打开保存案例模态框
+         */
+        function openSaveCaseModal() {
+            console.log('=== 点击了保存为案例按钮 ===');
+            
+            if (!currentConsultationId) {
+                console.error('错误：未选择咨询');
+                alert('请先选择一个咨询');
+                return;
+            }
+            console.log('当前咨询ID:', currentConsultationId);
+
+            const consultation = consultations.get(currentConsultationId);
+            if (!consultation) {
+                console.error('错误：未找到咨询信息');
+                alert('未找到咨询信息');
+                return;
+            }
+            console.log('咨询数据:', consultation);
+
+            // 显示模态框
+            const modal = document.getElementById('saveCaseModal');
+            console.log('模态框元素:', modal);
+            if (modal) {
+                modal.classList.add('active');
+                console.log('模态框已显示');
+            } else {
+                console.error('错误：找不到模态框元素');
+            }
+
+            // AI分析对话内容并自动填充
+            console.log('开始提取问卷数据...');
+            extractCaseInfoFromChat(consultation);
+        }
+
+        /**
+         * 关闭保存案例模态框
+         */
+        function closeSaveCaseModal() {
+            document.getElementById('saveCaseModal').classList.remove('active');
+            // 清空表单
+            document.getElementById('caseName').value = '';
+            document.getElementById('caseAge').value = '';
+            document.getElementById('caseOccupation').value = '';
+            document.getElementById('caseType').value = '';
+            document.getElementById('caseSymptoms').value = '';
+            document.getElementById('caseDiagnosis').value = '';
+            document.getElementById('caseTreatment').value = '';
+            document.getElementById('caseResult').value = '';
+            document.getElementById('caseTag').value = '';
+        }
+
+        /**
+         * 从问卷数据提取案例信息
+         */
+        function extractCaseInfoFromChat(consultation) {
+            console.log('=== 开始提取案例信息 ===');
+            // 获取病人信息和聊天记录
+            const patientInfo = consultation.patientInfo;
+            const messages = consultation.messages;
+            console.log('病人信息:', patientInfo);
+            console.log('聊天消息数量:', messages.length);
+
+            // 从问卷数据自动填充基本信息
+            let patientName = '';
+            let patientGender = '';
+            let patientAge = '';
+            let occupation = '';
+            let symptoms = '';
+
+            // 遍历消息，寻找问卷结果
+            messages.forEach((msg, index) => {
+                // 寻找问卷结果消息（包含特定格式）
+                if (msg.message && msg.message.includes('颈椎健康问卷结果')) {
+                    console.log(`找到问卷结果消息 (${index}):`, msg.message.substring(0, 100));
+                    const content = msg.message;
+                    
+                    // 提取姓名（匹配HTML格式：<strong>姓名:</strong> 值）
+                    const nameMatch = content.match(/<strong>姓名[:：]<\/strong>\s*([^<]+)/);
+                    if (nameMatch && nameMatch[1].trim() !== '未选择' && nameMatch[1].trim() !== '未填写') {
+                        patientName = nameMatch[1].trim();
+                        console.log('提取到姓名:', patientName);
+                    }
+                    
+                    // 提取性别
+                    const genderMatch = content.match(/<strong>性别[:：]<\/strong>\s*([^<]+)/);
+                    if (genderMatch && genderMatch[1].trim() !== '未选择' && genderMatch[1].trim() !== '未填写') {
+                        patientGender = genderMatch[1].trim();
+                        console.log('提取到性别:', patientGender);
+                    }
+                    
+                    // 提取年龄
+                    const ageMatch = content.match(/<strong>年龄[:：]<\/strong>\s*([^<]+)/);
+                    if (ageMatch && ageMatch[1].trim() !== '未选择' && ageMatch[1].trim() !== '未填写') {
+                        const age = ageMatch[1].trim();
+                        patientAge = age.includes('岁') ? age : age + '岁';
+                        console.log('提取到年龄:', patientAge);
+                    }
+                    
+                    // 提取职业
+                    const occupationMatch = content.match(/<strong>职业[:：]<\/strong>\s*([^<]+)/);
+                    if (occupationMatch && occupationMatch[1].trim() !== '未选择' && occupationMatch[1].trim() !== '未填写') {
+                        occupation = occupationMatch[1].trim();
+                        console.log('提取到职业:', occupation);
+                    }
+                    
+                    // 提取主要症状
+                    const symptomsMatch = content.match(/<strong>主要症状[:：]<\/strong>\s*([^<]+)/);
+                    if (symptomsMatch && symptomsMatch[1].trim() !== '未选择' && symptomsMatch[1].trim() !== '无' && symptomsMatch[1].trim() !== '未填写') {
+                        symptoms = symptomsMatch[1].trim();
+                        console.log('提取到主要症状:', symptoms);
+                    }
+                    
+                    // 如果没找到主要症状，尝试提取疼痛程度和症状持续时间
+                    if (!symptoms) {
+                        const painMatch = content.match(/<strong>疼痛程度[:：]<\/strong>\s*([^<]+)/);
+                        const durationMatch = content.match(/<strong>症状持续时间[:：]<\/strong>\s*([^<]+)/);
+                        if (painMatch || durationMatch) {
+                            symptoms = [
+                                painMatch ? `疼痛程度${painMatch[1].trim()}` : '',
+                                durationMatch ? `持续${durationMatch[1].trim()}` : ''
+                            ].filter(s => s).join('，');
+                            console.log('从疼痛程度/持续时间提取到症状:', symptoms);
+                        }
+                    }
+                }
+            });
+
+            console.log('=== 提取结果 ===');
+            console.log('姓名:', patientName);
+            console.log('性别:', patientGender);
+            console.log('年龄:', patientAge);
+            console.log('职业:', occupation);
+            console.log('症状:', symptoms);
+
+            // 格式化姓名：取第一个字 + 性别后缀
+            let formattedName = '患者';
+            if (patientName) {
+                const firstChar = patientName.charAt(0); // 取第一个字
+                if (patientGender === '女') {
+                    formattedName = firstChar + '女士';
+                } else {
+                    // 默认为男（性别为男或未填写）
+                    formattedName = firstChar + '先生';
+                }
+            }
+            console.log('格式化后的姓名:', formattedName);
+
+            // 自动填充表单（只填充基本信息）
+            document.getElementById('caseName').value = formattedName;
+            document.getElementById('caseAge').value = patientAge;
+            document.getElementById('caseOccupation').value = occupation;
+            document.getElementById('caseSymptoms').value = symptoms;
+            
+            console.log('=== 表单填充完成 ===');
+            
+            // 诊断、方案、效果留空，由专家填写
+            document.getElementById('caseDiagnosis').value = '';
+            document.getElementById('caseTreatment').value = '';
+            document.getElementById('caseResult').value = '';
+            document.getElementById('caseType').value = '';
+            
+            // 职业标签自动生成
+            if (occupation) {
+                const tagMap = {
+                    'IT工程师': 'IT工作者',
+                    '程序员': 'IT工作者',
+                    '会计': '办公室职员',
+                    '教师': '教师',
+                    '医生': '医护人员',
+                    '护士': '医护人员',
+                    '司机': '职业司机',
+                    '学生': '学生',
+                    '白领': '办公室职员'
+                };
+                const tag = tagMap[occupation] || occupation;
+                document.getElementById('caseTag').value = tag;
+                console.log('生成职业标签:', tag);
+            }
+        }
+
+        /**
+         * 确认保存案例
+         */
+        function confirmSaveCase() {
+            // 获取表单数据
+            const caseData = {
+                id: 'case_' + Date.now(),
+                name: document.getElementById('caseName').value.trim(),
+                age: document.getElementById('caseAge').value.trim(),
+                occupation: document.getElementById('caseOccupation').value.trim(),
+                type: document.getElementById('caseType').value,
+                symptoms: document.getElementById('caseSymptoms').value.trim(),
+                diagnosis: document.getElementById('caseDiagnosis').value.trim(),
+                treatment: document.getElementById('caseTreatment').value.trim().split('\n').filter(t => t.trim()),
+                result: document.getElementById('caseResult').value.trim(),
+                tag: document.getElementById('caseTag').value.trim(),
+                createdAt: new Date().toISOString(),
+                createdBy: currentExpert.name
+            };
+
+            // 验证必填字段
+            if (!caseData.name || !caseData.age || !caseData.occupation || 
+                !caseData.type || !caseData.symptoms || !caseData.diagnosis || 
+                caseData.treatment.length === 0 || !caseData.result) {
+                alert('请填写所有必填字段（标记*的字段）');
+                return;
+            }
+
+            // 保存到服务器
+            saveCaseToLocalStorage(caseData);
+
+            // 关闭模态框
+            closeSaveCaseModal();
+
+            // 显示成功消息
+            alert('案例已成功保存到服务器！所有用户都可以在康复案例页面查看。');
+        }
+
+        /**
+         * 保存案例到服务器
+         */
+        function saveCaseToLocalStorage(caseData) {
+            // 发送到服务器
+            if (socket && socket.connected) {
+                socket.emit('save-case', caseData);
+                console.log('案例已发送到服务器:', caseData);
+            } else {
+                console.error('未连接到服务器，无法保存案例');
+                alert('服务器连接失败，请检查网络');
+            }
+        }
+    </script>
+</body>
+</html>
+
